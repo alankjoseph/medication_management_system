@@ -3,7 +3,7 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const doctorRoutes= require('./routes/doctor')
+const superAdminRoutes= require('./routes/superAdmin')
 const app = express()
 dotenv.config()
 
@@ -18,7 +18,7 @@ app.use(
     })
 )
 
-app.use('/api/doctor', doctorRoutes)
+app.use('/api/superAdmin', superAdminRoutes)
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGO_URI)

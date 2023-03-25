@@ -27,7 +27,12 @@ const doctorSchema = mongoose.Schema({
     password:{
         type: String,
         
+    },
+    duty:{
+        type: Boolean,
+        default:false
     }
+
 
 })
 
