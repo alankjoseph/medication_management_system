@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-function Login() {
+
+function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
@@ -13,7 +14,7 @@ function Login() {
         onSubmit={handleSubmit}
       >
         <h3 className="font-bold text-2xl text-center mb-10 ">
-          Super admin login
+          {props.title}
         </h3>
         <div className="block mb-7  ">
           <label className="mt-2 mb-1 block text-sm font-bold text-gray-700">
@@ -37,17 +38,17 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <Link to={"/home"}>
+        
           <button
             type="submit"
             className="focus:shadow-outline  w-full rounded bg-blue-600 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
           >
             Login
           </button>
-        </Link>
+        
       </form>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default LoginForm

@@ -1,18 +1,14 @@
-const Doctor = require('../models/doctorModels')
+const Nurse = require('../models/nurseModels')
 const mailer = require('../config/passMailer')
-
 module.exports = {
-    doctorLogin: async (req, res) => {
-        
-    },
-    addDoctor: async (req, res) => {
+    addNurse: async (req, res) => {
         try {
             const { name, department, age, mobile, email, gender, password } = req.body
             console.log(name, department, age, mobile, email, gender, password)
-            const addDoc = new Doctor({
-                name, email, password, gender, age, mobile, department
+            const addNurse = new Nurse({
+                name, department, age, mobile, email, gender, password
             })
-            await addDoc.save()
+            await addNurse.save()
             let mailDetails = {
                 from: "alanjosephclt@gmail.com",
                 to: req.body.email,
@@ -27,11 +23,11 @@ module.exports = {
                 }
             })
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     },
-    allDoctor: async (req, res) => {
-        const doctors = await Doctor.find({})
-        res.status(200).json(doctors)
+    allNurse: async (req, res)=>{
+        const nurse = await Nurse.find({})
+        res.status(200).json(nurse)
     }
 }

@@ -1,21 +1,21 @@
-import React from 'react'
+import React from "react";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/SideBar";
-import AddDoctors from "../../components/AddDoctors";
+import AddNurses from "../../components/AddNurse";
 function AddNurse() {
-  return (
-    <div>
+    return (
+        <div>
             <div>
-                <Navbar title={"Super Admin's"}/>
+                <Navbar title={"Super Admin's"} />
             </div>
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <AddDoctors title=" Nurse" />
+                    <AddNurses title=" Nurse" api='http://localhost:4000/api/superAdmin/addNurse'/>
                 </div>
             </div>
         </div>
-  )
+    );
 }
 
-export default AddNurse
+export default AddNurse;

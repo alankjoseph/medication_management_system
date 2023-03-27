@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/SideBar";
-import List from "../../components/ListDoctor";
+import ListNurses from "../../components/ListNurse";
 function ListNurse() {
     return (
         <div>
@@ -11,7 +11,7 @@ function ListNurse() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <List title="Nurse" link='/addNurse' button="Nurse"/>
+                    <ListNurses title="Nurse" link='/addNurse' button="Nurse"/>
                 </div>
             </div>
         </div>

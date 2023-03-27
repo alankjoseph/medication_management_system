@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BaseTable from "../pages/BaseTable";
 
-function ListDoctor() {
+function MyComponent() {
     const [data, setData] = useState([]);
     const [search, setsearch] = useState("");
     const [filterData, setFilterData] = useState([]);
@@ -11,11 +11,10 @@ function ListDoctor() {
     const getData = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:4000/api/superAdmin/doctors"
+                "http://localhost:4000/api/superAdmin/department"
             );
             setData(response.data);
             setFilterData(response.data)
-            console.log(filterData)
         } catch (error) {
             console.log(error);
         }
@@ -25,29 +24,10 @@ function ListDoctor() {
         {
             name: "Name",
             selector: (row) => row.name,
-            sortable:true
         },
         {
-            name: "Department",
-            selector: (row) => row.department,
-        },
-        {
-            name: "Gender",
-            selector: (row) => row.gender,
-        },
-        {
-            name: "Age",
-            selector: (row) => row.age,
-        },
-        {
-            name: "Mobile",
-            selector: (row) => row.mobile,
-        },
-        {
-            name: "ON/OFF duty",
-            cell: (row) => (
-                <h1 className="bg-red-600 px-4 py-1 text-white text-base font-semibold ">OFF</h1>
-            ),
+            name: "Number of Beds",
+            selector: (row) => row.beds,
         },
     ];
 
@@ -66,7 +46,7 @@ function ListDoctor() {
         <BaseTable
             columns={columns}
             data={filterData}
-            title={<h1 className="font-semibold text-4xl">Doctor's List</h1>}
+            title={<h1 className="font-semibold text-4xl">Department List</h1>}
             subHeader
             subHeaderComponent={
                 <input
@@ -78,9 +58,9 @@ function ListDoctor() {
                 />
             }
             actions={
-                <Link to={'/addDoctor'}>
+                <Link to={'/addDepartment'}>
                     <button className="bg-lime-500 h-10 shadow  text-base font-semibold  w-32 rounded-md">
-                        Add Doctor
+                        Add Department
                     </button>
                 </Link>
             }
@@ -89,4 +69,4 @@ function ListDoctor() {
     );
 }
 
-export default ListDoctor;
+export default MyComponent;

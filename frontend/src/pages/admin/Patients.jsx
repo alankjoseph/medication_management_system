@@ -2,7 +2,7 @@ import React from "react";
 
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/admin/Sidebar";
-import List from "../../components/ListDoctor";
+import ViewPatients from '../../components/admin/ViewPatients'
 function Patients() {
     return (
         <div>
@@ -12,8 +12,9 @@ function Patients() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <List
+                    <ViewPatients
                         title="Patients List"
+                        api="http://localhost:4000/api/admin/patient"
                         link="/addPatients"
                         button="Patient"
                     />

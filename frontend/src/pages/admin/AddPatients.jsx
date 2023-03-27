@@ -11,7 +11,7 @@ function AddPatient() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <AddPatients />
+                    <AddPatients api />
                 </div>
             </div>
         </div>

@@ -8,9 +8,10 @@ function AddDepartments(props) {
     const addDepartment = async(e)=>{
         e.preventDefault()
         try {
-            const {data} = axios.post('http://localhost:4000/api/superAdmin/addDepartment',{
+            const {data} = axios.post(props.api,{
                 name, beds
             })
+            
         } catch (error) {
             console.log(error);
         }

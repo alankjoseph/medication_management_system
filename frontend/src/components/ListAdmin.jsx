@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BaseTable from "../pages/BaseTable";
 
-function ListDoctor() {
+function ListAdmin() {
     const [data, setData] = useState([]);
     const [search, setsearch] = useState("");
     const [filterData, setFilterData] = useState([]);
@@ -11,11 +11,10 @@ function ListDoctor() {
     const getData = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:4000/api/superAdmin/doctors"
+                "http://localhost:4000/api/superAdmin/admin"
             );
             setData(response.data);
             setFilterData(response.data)
-            console.log(filterData)
         } catch (error) {
             console.log(error);
         }
@@ -66,7 +65,7 @@ function ListDoctor() {
         <BaseTable
             columns={columns}
             data={filterData}
-            title={<h1 className="font-semibold text-4xl">Doctor's List</h1>}
+            title={<h1 className="font-semibold text-4xl">Admis's List</h1>}
             subHeader
             subHeaderComponent={
                 <input
@@ -78,9 +77,9 @@ function ListDoctor() {
                 />
             }
             actions={
-                <Link to={'/addDoctor'}>
+                <Link to={'/addAdmin'}>
                     <button className="bg-lime-500 h-10 shadow  text-base font-semibold  w-32 rounded-md">
-                        Add Doctor
+                        Add Admin
                     </button>
                 </Link>
             }
@@ -89,4 +88,4 @@ function ListDoctor() {
     );
 }
 
-export default ListDoctor;
+export default ListAdmin

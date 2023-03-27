@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/SideBar";
-import AddDoctors from "../../components/AddDoctors";
+import Add from "../../components/AddDoctors";
 function AddAdmin() {
     return (
         <div>
@@ -11,7 +11,7 @@ function AddAdmin() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <AddDoctors title="Admin" />
+                    <Add title="Admin" api='http://localhost:4000/api/superAdmin/addAdmin' />
                 </div>
             </div>
         </div>

@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import axios from "axios";
 import { FaCaretDown } from "react-icons/fa";
-
-function AddDoctors(props) {
-    const [name, setName] = useState("");
-    const [department, setDepartment] = useState("");
-    const [age, setAge] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [gender, setGender] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+function AddNurse(props) {
+    const [name, setName] = useState('')
+    const [department, setDepartment] = useState('')
+    const [age, setAge] = useState('')
+    const [mobile, setMobile] = useState('')
+    const [gender, setGender] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [availableDepartment, setAvailableDepartment] = useState([]);
-
+    
     useEffect(()=>{
         axios.get('http://localhost:4000/api/superAdmin/department')
             .then(response =>{
@@ -22,46 +21,40 @@ function AddDoctors(props) {
                 console.log(error);
             })
     },[])
-    const addDoc = async (e) => {
+    
+    
+    const addDoc = async(e)=>{
         e.preventDefault();
-
+        
         try {
-            const generatePassword = (length) => {
-                const charset =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const generatePassword =  (length) =>{
+                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                 let password = "";
                 for (let i = 0; i < length; i++) {
-                    const randomIndex = Math.floor(
-                        Math.random() * charset.length
-                    );
-                    password += charset[randomIndex];
+                  const randomIndex =  Math.floor(Math.random() * charset.length);
+                  password +=  charset[randomIndex];
                 }
                 return password;
-            };
-            const newPassword = generatePassword(8);
+              }
+            const newPassword = generatePassword(8); 
             setPassword(newPassword);
-            await Promise.resolve();
-            const { data } = await axios.post(props.api, {
-                name,
-                department,
-                age,
-                mobile,
-                gender,
-                email,
-                password,
-            });
-            setAge("");
-            setDepartment("");
-            setEmail("");
-            setGender("");
-            setMobile("");
-            setName("");
-            setPassword("");
+            const {data} = await axios.post(props.api,{
+                    name,department,age,mobile,gender, email,password
+                }
+            )
+            setAge('')
+            setDepartment('')
+            setEmail('')
+            setGender('')
+            setMobile('')
+            setName('')
+            setPassword('')
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-    };
 
+    }
+    
     return (
         <div>
             <div className=" ">
@@ -71,7 +64,7 @@ function AddDoctors(props) {
                     </h1>
                 </div>
                 <div>
-                    <form className="w-full max-w-md mx-auto">
+                    <form className="w-full max-w-md mx-auto" >
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
                             htmlFor="name"
@@ -83,7 +76,7 @@ function AddDoctors(props) {
                             id="name"
                             type="text"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e)=> setName(e.target.value)}
                             placeholder="Name"
                         />
                         <label
@@ -121,7 +114,7 @@ function AddDoctors(props) {
                             id="age"
                             type="text"
                             value={age}
-                            onChange={(e) => setAge(e.target.value)}
+                            onChange={(e)=> setAge(e.target.value)}
                             placeholder="Age"
                         />
                         <label
@@ -137,7 +130,7 @@ function AddDoctors(props) {
                             minLength={10}
                             maxLength={10}
                             value={mobile}
-                            onChange={(e) => setMobile(e.target.value)}
+                            onChange={(e)=> setMobile(e.target.value)}
                             placeholder="Mobile"
                         />
                         <label
@@ -151,7 +144,7 @@ function AddDoctors(props) {
                             id="email"
                             type="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e)=> setEmail(e.target.value)}
                             placeholder="Email"
                         />
                         <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">
@@ -164,8 +157,9 @@ function AddDoctors(props) {
                                 id="Male"
                                 name="gender"
                                 value="Male"
-                                checked={gender === "Male"}
-                                onChange={(e) => setGender(e.target.value)}
+                                checked={gender === 'Male'}
+                                onChange={(e)=> setGender(e.target.value)}
+
                             />
                             <label
                                 className="text-gray-700 text-sm font-bold"
@@ -181,8 +175,9 @@ function AddDoctors(props) {
                                 id="Female"
                                 name="gender"
                                 value="Female"
-                                checked={gender === "Female"}
-                                onChange={(e) => setGender(e.target.value)}
+                                checked={gender === 'Female'}
+                                onChange={(e)=> setGender(e.target.value)}
+
                             />
                             <label
                                 className="text-gray-700 text-sm font-bold"
@@ -213,4 +208,4 @@ function AddDoctors(props) {
     );
 }
 
-export default AddDoctors;
+export default AddNurse

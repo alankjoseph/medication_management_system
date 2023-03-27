@@ -8,6 +8,7 @@ module.exports = {
                 name, beds
             })
             await addDepartment.save()
+            res.status(200)
 
         } catch (error) {
             console.log(error);

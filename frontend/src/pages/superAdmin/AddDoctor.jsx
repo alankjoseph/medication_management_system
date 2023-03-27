@@ -11,7 +11,7 @@ function AddDoctor() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <AddDoctors title="Doctor" />
+                    <AddDoctors title="Doctor" api='http://localhost:4000/api/superAdmin/addDoctor' />
                 </div>
             </div>
         </div>
