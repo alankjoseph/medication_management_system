@@ -4,8 +4,17 @@ import { BsArrowLeftShort, BsHeartPulse } from "react-icons/bs";
 import { BiUserPlus } from "react-icons/bi";
 import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa";
+import { RiLogoutBoxLine } from "react-icons/ri";
+import { useLogout } from "../../hooks/admin/useLogout";
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
+
 function SideBar() {
   const [open, setOpen] = useState(true);
+  const { logout } = useLogout();
+  const { admin } = useAuthContext();
+  const handleClick = () => {
+    logout();
+  };
 
   const Menus = [
     { title: "Dashboard", link: "/adminHome", icon: <MdDashboard /> },
@@ -69,6 +78,19 @@ function SideBar() {
               </Link>
             </>
           ))}
+          <li className="text-gray-300 text-xl flex items-center gap-x-4 p-2 cursor-pointer hover:bg-[#374151] rounded-md mt-2">
+            <span className="text-2xl block float-left">
+              <RiLogoutBoxLine />
+            </span>
+            <p
+              className={`text-base font-medium flex-1 duration-200 ${
+                !open && "hidden"
+              }`}
+            >
+              
+              Logout
+            </p>
+          </li>
         </ul>
       </div>
     </div>

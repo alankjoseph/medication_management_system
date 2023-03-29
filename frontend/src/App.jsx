@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useAuthContext } from "./hooks/admin/useAuthContext";
+
 import Login from "./pages/Login";
 import SuperAdminHome from "./pages/superAdmin/Home";
 import ListDoctors from "./pages/superAdmin/ListDoctors";
@@ -16,6 +18,7 @@ import Table from "./pages/Table";
 import AdminLogin from "./pages/admin/AdminLogin";
 
 function App() {
+  const {admin} = useAuthContext()
   return (
     <div className="app">
       <BrowserRouter>
@@ -34,10 +37,10 @@ function App() {
           <Route path="/addDepartment" element={<AddDepartment />} />
 
           {/* admin */}
-          <Route path="/adminHome" element={<AdminHome />} />
-          <Route path="/addPatients" element={<AddPatient />} />
-          <Route path="/patients" element={<Patients />} />
-          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/adminHome" element={admin ? <AdminHome /> : <Navigate to={'/admin'} />} />
+          <Route path="/addPatients" element={admin ? <AddPatient /> : <Navigate to={'/admin'} /> } />
+          <Route path="/patients" element={admin ? <Patients /> : <Navigate to={'/admin'} />} />
+          <Route path="/admin" element={!admin ? <AdminLogin /> : <Navigate to={'/adminHome'} />} />
 
         </Routes>
       </BrowserRouter>

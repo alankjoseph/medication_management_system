@@ -1,13 +1,20 @@
 const Admin = require('../models/adminModels')
 const mailer = require('../config/passMailer')
+const jwt = require('jsonwebtoken')
+
+const createToken = (_id) => {
+    return jwt.sign({_id},process.env.SECRET,{expiresIn:'3d'})
+}
 module.exports = {
     adminLogin: async (req, res) => {
         const { email, password } = req.body
         try {
-            const admin = await Admin.login(email,password)
-            res.status(200).json({email, admin})
+            const admin = await Admin.login(email, password)
+            const token = createToken(admin._id)
+            res.status(200).json({email, token})
         } catch (error) {
             console.log(error);
+            
         }
     },
     addAdmin:async(req,res)=>{

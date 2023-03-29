@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useLogin } from "../../hooks/admin/useLogin";
 
 function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {login, error,isloading} = useLogin()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await login(email,password)
   };
   return (
     <div className="h-screen  flex justify-center items-center  ">
