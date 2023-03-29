@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSuperLogin } from "../hooks/superAdmin/useSuperLogin";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, error, isloading } = useSuperLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await login(email,password)
   };
   return (
     <div className="h-screen  flex justify-center items-center  ">
@@ -37,14 +40,13 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <Link to={"/home"}>
           <button
             type="submit"
             className="focus:shadow-outline  w-full rounded bg-blue-600 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
           >
             Login
           </button>
-        </Link>
+          {error && <div className="p-1 bg-[#ffefef] border border-solid border-[#e7195a] text-center text-[#e7195a] rounded my-3">{error}</div> }
       </form>
     </div>
   );

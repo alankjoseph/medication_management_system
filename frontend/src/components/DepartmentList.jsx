@@ -22,6 +22,11 @@ function MyComponent() {
 
     const columns = [
         {
+            name: "#",
+            cell: (row, index) => <div>{index + 1}</div>,
+            
+        },
+        {
             name: "Name",
             selector: (row) => row.name,
         },
@@ -59,7 +64,7 @@ function MyComponent() {
             }
             actions={
                 <Link to={'/addDepartment'}>
-                    <button className="bg-lime-500 h-10 shadow  text-base font-semibold  w-32 rounded-md">
+                    <button className="bg-lime-500 h-10 shadow  text-base font-semibold  px-4 py-2 rounded-md">
                         Add Department
                     </button>
                 </Link>

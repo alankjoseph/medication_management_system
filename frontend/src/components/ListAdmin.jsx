@@ -22,6 +22,11 @@ function ListAdmin() {
 
     const columns = [
         {
+            name: "#",
+            cell: (row, index) => <div>{index + 1}</div>,
+            
+          },
+        {
             name: "Name",
             selector: (row) => row.name,
             sortable:true

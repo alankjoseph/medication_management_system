@@ -38,10 +38,10 @@ adminSchema.statics.login = async function (email, password) {
     }
     const admin = await this.findOne({ email })
     if (!admin) {
-        throw Error('Incorrect email')
+        throw Error('Invalid email or password')
     }
     if (password === !admin.password) {
-        throw Error('Incorrect password')
+        throw Error('Invalid email or password')
     }
     return admin
 }

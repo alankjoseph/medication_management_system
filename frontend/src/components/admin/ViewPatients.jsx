@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
+import { FaUserEdit } from "react-icons/fa";
 function ViewPatients() {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setsearch] = useState("");
   const [filterData, setFilterData] = useState([]);
@@ -20,6 +22,11 @@ function ViewPatients() {
   };
 
   const columns = [
+    {
+      name: "#",
+      cell: (row, index) => <div>{index + 1}</div>,
+      
+    },
     {
       name: "Name",
       selector: (row) => row.name,
@@ -45,8 +52,17 @@ function ViewPatients() {
       name: "Bed Number",
       selector: (row) => row.bedNumber,
     },
-    
-    
+    {
+      name: "Action",
+      cell: (row) => (
+        <button
+          className="  px-4 py-2  text-base font-semibold rounded"
+          onClick={() => navigate(`/patient/${row._id}`)}
+        >
+          <FaUserEdit className="text-3xl cursor-pointer text-gray-800 " />
+        </button>
+      ),
+    },
   ];
 
   useEffect(() => {

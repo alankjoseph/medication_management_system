@@ -12,7 +12,7 @@ function SideBar() {
   const [open, setOpen] = useState(true);
   const { logout } = useLogout();
   const { admin } = useAuthContext();
-  const handleClick = () => {
+  const handleLogout = () => {
     logout();
   };
 
@@ -83,6 +83,7 @@ function SideBar() {
               <RiLogoutBoxLine />
             </span>
             <p
+              onClick={handleLogout}
               className={`text-base font-medium flex-1 duration-200 ${
                 !open && "hidden"
               }`}

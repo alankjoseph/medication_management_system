@@ -4,8 +4,9 @@ const departmentController = require('../controllers/departmentController')
 const doctorController = require('../controllers/doctorController')
 const adminController = require('../controllers/adminController')
 const nurseController = require('../controllers/nurseController')
+const superController = require('../controllers/superAdmin/superAdminControlls')
 
-
+router.post('/superAdminLogin',superController.superAdminLogin)
 router.post('/addDoctor',doctorController.addDoctor)
 router.post('/addDepartment',departmentController.addDepartment)
 router.post('/addNurse', nurseController.addNurse)

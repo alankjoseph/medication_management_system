@@ -23,6 +23,11 @@ function ListDoctor() {
 
     const columns = [
         {
+            name: "#",
+            cell: (row, index) => <div>{index + 1}</div>,
+            
+          },
+        {
             name: "Name",
             selector: (row) => row.name,
             sortable:true
@@ -79,7 +84,7 @@ function ListDoctor() {
             }
             actions={
                 <Link to={'/addDoctor'}>
-                    <button className="bg-lime-500 h-10 shadow  text-base font-semibold  w-32 rounded-md">
+                    <button className="bg-lime-500 h-10 shadow  text-base font-semibold  px-4 py-2 rounded-md">
                         Add Doctor
                     </button>
                 </Link>
