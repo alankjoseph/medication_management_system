@@ -5,8 +5,9 @@ import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 import { FcDepartment } from "react-icons/fc";
 import { FaUserNurse } from "react-icons/fa";
 import { RiAdminLine, RiLogoutBoxLine } from "react-icons/ri";
-import { useSuperLogout } from "../hooks/superAdmin/useSuperLogout";
-import { useAuthContext } from "../hooks/admin/useAuthContext";
+import {FaBriefcaseMedical} from 'react-icons/fa' 
+import { useSuperLogout } from "../../hooks/superAdmin/useSuperLogout";
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function SideBar() {
     const [open, setOpen] = useState(true);
     const { logout } = useSuperLogout();
@@ -16,6 +17,7 @@ function SideBar() {
     { title: "Doctors", link: "/listDoctors", icon: <BsHeartPulse /> },
     { title: "Staff Nurse", link: "/listNurses", icon: <FaUserNurse /> },
     { title: "Admins", link: "/listAdmins", icon: <RiAdminLine /> },
+    { title: "Drugs", link: "/listDrugs", icon: <FaBriefcaseMedical /> },
     { title: "Department", link: "/listDepartment", icon: <FcDepartment /> },
   ];
   useEffect(() => {

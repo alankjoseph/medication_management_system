@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import SideBar from "../../components/SideBar";
-import MyComponent from "../../components/DepartmentList";
+import SideBar from "../../components/superAdmin/SideBar";
+import MyComponent from "../../components/superAdmin/DepartmentList";
 function ListDepartment() {
   return (
     <div>

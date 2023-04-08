@@ -33,5 +33,19 @@ module.exports = {
     allDoctor: async (req, res) => {
         const doctors = await Doctor.find({})
         res.status(200).json(doctors)
+    },
+    blockDoctor: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const doctor = await Doctor.findById(id);
+            const isDisabled = doctor.isDisabled ? false : true;
+            await Doctor.findByIdAndUpdate(id, { $set: { isDisabled } });
+            res.status(200).json({ success: true });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false });
+        }
+        
+       
     }
 }

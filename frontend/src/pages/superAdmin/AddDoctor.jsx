@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import SideBar from "../../components/SideBar";
-import AddDoctors from "../../components/AddDoctors";
+import SideBar from "../../components/superAdmin/SideBar";
+import AddDoctors from "../../components/superAdmin/AddDoctors";
 function AddDoctor() {
     return (
         <div>

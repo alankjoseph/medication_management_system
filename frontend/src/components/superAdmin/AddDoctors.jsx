@@ -9,7 +9,6 @@ function AddDoctors(props) {
     const [mobile, setMobile] = useState("");
     const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [availableDepartment, setAvailableDepartment] = useState([]);
 
     useEffect(()=>{
@@ -36,11 +35,12 @@ function AddDoctors(props) {
                     );
                     password += charset[randomIndex];
                 }
+                console.log(password);
                 return password;
             };
-            const newPassword = generatePassword(8);
-            setPassword(newPassword);
-            await Promise.resolve();
+            const password = generatePassword(8);
+            
+            
             const { data } = await axios.post(props.api, {
                 name,
                 department,
@@ -56,7 +56,6 @@ function AddDoctors(props) {
             setGender("");
             setMobile("");
             setName("");
-            setPassword("");
         } catch (error) {
             console.log(error);
         }

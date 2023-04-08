@@ -13,9 +13,7 @@ function PatientEdit() {
       <div className="flex">
         <SideBar />
         <div className="p-10 w-full">
-          <EditPatient
-            
-          />
+          <EditPatient />
         </div>
       </div>
     </div>

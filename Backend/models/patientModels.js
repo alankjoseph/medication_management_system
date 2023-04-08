@@ -36,7 +36,15 @@ const patientSchema = Schema({
     },
     reason: {
         type: String
+    },
+    isCompleted: {
+        type: Boolean,
+        default: false
+    },
+    isAdmit: {
+        type: Boolean,
+        default: false
     }
-})
+},{timestamps: true})
 
 module.exports = mongoose.model('Patient', patientSchema)

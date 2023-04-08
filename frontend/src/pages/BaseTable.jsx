@@ -28,6 +28,18 @@ const customStyles = {
       color: "white",
     },
   },
+  header: {
+    style: {
+      backgroundColor: "#7f8276",
+      color: "white",
+    },
+  },
+  subHeader: {
+    style: {
+      backgroundColor: "#7f8276",
+      color: "white",
+    },
+  },
 };
 function BaseTable(props) {
   return (

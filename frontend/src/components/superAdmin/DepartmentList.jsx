@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import BaseTable from "../pages/BaseTable";
+import BaseTable from "../../pages/BaseTable";
 
 function MyComponent() {
     const [data, setData] = useState([]);

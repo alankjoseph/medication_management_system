@@ -10,7 +10,11 @@ export const authReducer = (state, action) => {
         case 'SUPERLOGIN':
             return { superAdmin: action.payload }
         case 'SUPERLOGOUT':
-            return {superAdmin: null}
+            return { superAdmin: null }
+        case 'DOCTORLOGIN':
+            return { doctor: action.payload }
+        case 'DOCTORLOGOUT':
+            return { doctor: null }
         default :
             return state
     }
@@ -18,18 +22,24 @@ export const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         admin: null,
-        superAdmin:null
+        superAdmin: null,
+        doctor: null,
     })
     useEffect(() => {
         const admin = JSON.parse(localStorage.getItem('admin'))
         const superAdmin = JSON.parse(localStorage.getItem('superAdmin'))
+        const doctor = JSON.parse(localStorage.getItem('doctor'))
         if (admin) {
-            dispatch({type:'LOGIN' ,payload:admin})
+            dispatch({ type: 'LOGIN', payload: admin })
         }
         if (superAdmin) {
             dispatch({type:'SUPERLOGIN', payload:superAdmin})
         }
-    }, [])
+        if (doctor) {
+            dispatch({type:'DOCTORLOGIN', payload:superAdmin})
+        }
+        
+    },[])
     console.log('AuthContext state', state)
     return (
         <AuthContext.Provider value={{...state, dispatch}}>

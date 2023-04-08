@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import SideBar from "../../components/SideBar";
-import AddDepartments from "../../components/AddDepartments";
+import SideBar from "../../components/superAdmin/SideBar";
+import AddDepartments from "../../components/superAdmin/AddDepartments";
 
 function AddDepartment() {
     return (

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import SideBar from "../../components/SideBar";
-import AddNurses from "../../components/AddNurse";
+import SideBar from "../../components/superAdmin/SideBar";
+import AddNurses from "../../components/superAdmin/AddNurse";
 function AddNurse() {
     return (
         <div>

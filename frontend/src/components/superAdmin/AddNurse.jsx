@@ -8,7 +8,6 @@ function AddNurse(props) {
     const [mobile, setMobile] = useState('')
     const [gender, setGender] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [availableDepartment, setAvailableDepartment] = useState([]);
     
     useEffect(()=>{
@@ -36,8 +35,8 @@ function AddNurse(props) {
                 }
                 return password;
               }
-            const newPassword = generatePassword(8); 
-            setPassword(newPassword);
+            const password = generatePassword(8); 
+           
             const {data} = await axios.post(props.api,{
                     name,department,age,mobile,gender, email,password
                 }
@@ -48,7 +47,7 @@ function AddNurse(props) {
             setGender('')
             setMobile('')
             setName('')
-            setPassword('')
+           
         } catch (error) {
             console.log(error)
         }

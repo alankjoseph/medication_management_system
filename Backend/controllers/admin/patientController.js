@@ -16,8 +16,14 @@ module.exports = {
         }
     },
     allPatient: async (req, res) => {
-        const patient = await Patient.find({})
+        try {
+            const patient = await Patient.find({})
         res.status(200).json(patient)
+        } catch (error) {
+            console.log(error);
+            res.status(401).json({msg:error})
+        }
+        
     },
     singlePatient: async (req, res) => {
         try {

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Dashbord() {
+function Dashbord(props) {
     const items = [
         { title: "Department", number: "8" },
         { title: "Doctors", number: "20" },
@@ -14,7 +14,7 @@ function Dashbord() {
         <>
             <div>
                 <h1 className="text-4xl  font-bold  content-between  mb-16 text-center">
-                    Welcome to Super Admin's Dashboard
+                    Welcome to {props.title} Dashboard
                 </h1>
             </div>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-10 mx-20 place-items-center ">

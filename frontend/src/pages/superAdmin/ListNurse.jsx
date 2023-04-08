@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import SideBar from "../../components/SideBar";
-import ListNurses from "../../components/ListNurse";
+import SideBar from "../../components/superAdmin/SideBar";
+import ListNurses from "../../components/superAdmin/ListNurse";
 function ListNurse() {
     return (
         <div>

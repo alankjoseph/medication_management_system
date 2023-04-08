@@ -35,9 +35,26 @@ const doctorSchema = mongoose.Schema({
     duty:{
         type: Boolean,
         default:false
+    },
+    isDisabled: {
+        type: Boolean,
+        default:false
     }
 
 
 })
+doctorSchema.statics.login = async function (email, password) {
+    if (!email || !password) {
+        throw Error('All fields must be filled')
+    }
+    const doctor = await this.findOne({ email })
+    if (!doctor) {
+        throw Error('Invalid email or password')
+    }
+    if (password === !doctor.password) {
+        throw Error('Invalid email or password')
+    }
+    return doctor
+}
 
 module.exports = mongoose.model('Doctor',doctorSchema)

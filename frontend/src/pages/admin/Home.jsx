@@ -1,5 +1,5 @@
 import React from "react";
-import Dashbord from "../../components/Dashbord";
+import Dashbord from "../../components/superAdmin/Dashbord";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/admin/Sidebar";
 function Home() {
@@ -13,7 +13,7 @@ function Home() {
                     <SideBar />
                 </div>
                 <div className="ml-20 mt-20 w-full">
-                    <Dashbord />
+                    <Dashbord title="Admin's"/>
                 </div>
             </div>
         </div>

@@ -29,6 +29,14 @@ const adminSchema = mongoose.Schema({
     },
     password:{
         type:String
+    },
+    duty:{
+        type: Boolean,
+        default:false
+    },
+    isDisabled: {
+        type: Boolean,
+        default:false
     }
 })
 

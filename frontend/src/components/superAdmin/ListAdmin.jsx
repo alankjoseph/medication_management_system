@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import BaseTable from "../pages/BaseTable";
+import BaseTable from "../../pages/BaseTable";
 
 function ListAdmin() {
     const [data, setData] = useState([]);
@@ -50,9 +50,28 @@ function ListAdmin() {
         {
             name: "ON/OFF duty",
             cell: (row) => (
-                <h1 className="bg-red-600 px-4 py-1 text-white text-base font-semibold ">OFF</h1>
-            ),
+                <h1
+                  className={`bg-${
+                    row.duty ? "green" : "red"
+                  }-600 px-4 py-1 text-white rounded-md  text-base font-semibold`}
+                >
+                  {row.duty ? "ON" : "OFF"}
+                </h1>
+              ),
         },
+        {
+            name: "Action",
+            cell: (row) => (
+              <h1
+                className={`bg-${
+                  row.isDisabled ? "green" : "red"
+                }-600 px-4 py-1 text-white rounded-md  text-base font-semibold`}
+              >
+                {row.isDisabled ? "Unblock" : "Block"}
+              </h1>
+            ),
+          },
+        
     ];
 
     useEffect(() => {
@@ -70,7 +89,7 @@ function ListAdmin() {
         <BaseTable
             columns={columns}
             data={filterData}
-            title={<h1 className="font-semibold text-4xl">Admis's List</h1>}
+            title={<h1 className="font-semibold text-4xl">Admin's List</h1>}
             subHeader
             subHeaderComponent={
                 <input

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
-import SideBar from "../../components/SideBar";
-import Dashbord from "../../components/Dashbord";
+import SideBar from "../../components/superAdmin/SideBar";
+import Dashbord from "../../components/superAdmin/Dashbord";
 
 function Home() {
     return (

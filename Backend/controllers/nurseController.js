@@ -13,12 +13,21 @@ module.exports = {
                 from: "alanjosephclt@gmail.com",
                 to: req.body.email,
                 subject: "Username and Password",
-                html: `<p>Your user name and password for the Login purpose are userName- <strong>${email}<strong/> and password-<strong>${password}<strong/></p>`,
+                html: `
+                <div>
+                <div>Medication management System</div>
+
+                <p> userName- <strong>${email}<strong/> and password-<strong>${password}<strong/></p>
+
+                </div>
+                
+                `,
             };
             mailer.passMailer.sendMail(mailDetails, (err, data) => {
                 if (err) {
                     console.log(err)
                 } else {
+                    res.status(200).json(success)
                     console.log('password mailed');
                 }
             })

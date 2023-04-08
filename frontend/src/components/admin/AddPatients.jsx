@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function AddPatients() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -14,17 +15,28 @@ function AddPatients() {
   const [reason, setReason] = useState("");
   const [weight, setWeight] = useState("");
   const [availableDoctors, setAvailableDoctors] = useState([]);
+  const [error, setError] = useState(null)
+  const { admin } = useAuthContext();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/superAdmin/doctors")
-      .then((response) => {
-        setAvailableDoctors(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    const fetchDoctors = async () => {
+      axios
+        .get("http://localhost:4000/api/superAdmin/doctors", {
+          headers: {
+            Authorization: `Bearer ${admin.token}`,
+          },
+        })
+        .then((response) => {
+          setAvailableDoctors(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    if (admin) {
+      fetchDoctors();
+    }
+  }, [admin]);
 
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
@@ -34,31 +46,31 @@ function AddPatients() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      name,
-      age,
-      gender,
-      address,
-      bloodGroup,
-      bedNumber,
-      weight,
-      advisingDoctor,
-      bloodPresure,
-      reason,
-    });
+    if (!admin) {
+      setError('You must be logged in')
+      return
+    }
+   
     // Submit the form data to the server or do something else with it here
-    const { data } = await axios.post("http://localhost:4000/api/admin/AddPatient", {
-      name,
-      age,
-      gender,
-      address,
-      bloodGroup,
-      bedNumber,
-      weight,
-      advisingDoctor,
-      bloodPresure,
-      reason,
-    });
+    const { data } = await axios.post(
+      "http://localhost:4000/api/admin/AddPatient",
+      {
+        name,
+        age,
+        gender,
+        address,
+        bloodGroup,
+        bedNumber,
+        weight,
+        advisingDoctor,
+        bloodPresure,
+        reason,
+      }, {
+        headers: {
+          Authorization: `Bearer ${admin.token}`,
+        }
+      }
+    );
   };
 
   return (
@@ -284,6 +296,7 @@ function AddPatients() {
           >
             Cancel
           </button>
+          {error && <div className="text-red-500 ">{error }</div>}
         </div>
       </form>
     </div>
