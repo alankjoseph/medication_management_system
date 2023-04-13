@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function PatientDetails() {
   const { id } = useParams();
   const [name, setName] = useState("");
@@ -11,15 +12,23 @@ function PatientDetails() {
   const [bloodPresure, setBloodPresure] = useState("");
   const [reason, setReason] = useState("");
   const [isAdmit, setIsAdmit] = useState("");
-  
+  const { doctor } = useAuthContext();
   
   const handleAdmit = async () => {
-    await axios.patch(`http://localhost:4000/api/doctor/admit/${id}`);
+    await axios.patch(`http://localhost:4000/api/doctor/admit/${id}`, {
+      headers: {
+        Authorization: `Bearer ${doctor.token}`,
+      },
+    });
     getPatient()
   };
   const getPatient = async () => {
     const { data } = await axios.get(
-      `http://localhost:4000/api/doctor/singlePatient/${id}`
+      `http://localhost:4000/api/doctor/singlePatient/${id}`, {
+        headers: {
+          Authorization: `Bearer ${doctor.token}`,
+        },
+      }
     );
     setName(data.patient.name);
     setAge(data.patient.age);

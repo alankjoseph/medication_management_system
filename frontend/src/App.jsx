@@ -37,7 +37,8 @@ import UpdatePatientDetails from "./pages/nurse/UpdatePatientDetails";
 
 
 function App() {
-  const {admin, superAdmin,doctor} = useAuthContext()
+  const { admin, superAdmin, doctor, nurse } = useAuthContext()
+  
   return (
     <div className="app">
       <BrowserRouter>
@@ -65,16 +66,16 @@ function App() {
 
           {/* doctor */}
           <Route path="/doctor" element={!doctor ? <LoginDoctor />: <Navigate to={'/doctorHome'}/>} />
-          <Route path="/doctorHome" element={<HomeDoctor />} />
-          <Route path="/booking" element={ <Booking /> } />
-          <Route path="/doctorPatient/:id" element={<MainDoctor />  } />
+          <Route path="/doctorHome" element={doctor ? <HomeDoctor /> : <Navigate to={'/doctor'}/> } />
+          <Route path="/booking" element={doctor ? <Booking />:  <Navigate to={'/doctor'}/>} />
+          <Route path="/doctorPatient/:id" element={doctor ? <MainDoctor /> :<Navigate to={'/doctor'}/>  } />
 
           {/* nurse */}
 
-          <Route path="/nurse" element={<LoginNurse />} />
-          <Route path="/admitedPatients" element={<ListAdmitted />} />
-          <Route path="/viewDetails/:id" element={<PatientView />} />
-          <Route path="/updatePatient/:id" element={ <UpdatePatientDetails/>} />
+          <Route path="/nurse" element={!nurse ?<LoginNurse /> : <Navigate to={'/admitedPatients'} /> } />
+          <Route path="/admitedPatients" element={ nurse ? <ListAdmitted /> : <Navigate to={'/nurse'} /> } />
+          <Route path="/viewDetails/:id" element={ nurse ? <PatientView /> :<Navigate to={'/nurse'}/> } />
+          <Route path="/updatePatient/:id" element={nurse ? <UpdatePatientDetails /> : <Navigate to={'/nurse'} />} />
           
         </Routes>
       </BrowserRouter>

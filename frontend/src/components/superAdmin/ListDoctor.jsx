@@ -2,15 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
-
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function ListDoctor() {
   const [data, setData] = useState([]);
   const [search, setsearch] = useState("");
   const [filterData, setFilterData] = useState([]);
+  const { superAdmin } = useAuthContext();
   const handleBlock = async (id) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/superAdmin/blockDoctor/${id}`
+        `http://localhost:4000/api/superAdmin/blockDoctor/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${superAdmin.token}`,
+          },
+        }
       );
 
       getData();
@@ -21,7 +27,12 @@ function ListDoctor() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/superAdmin/doctors"
+        "http://localhost:4000/api/superAdmin/doctors",
+        {
+          headers: {
+            Authorization: `Bearer ${superAdmin.token}`,
+          },
+        }
       );
       setData(response.data);
       setFilterData(response.data);
@@ -34,11 +45,13 @@ function ListDoctor() {
     {
       name: "#",
       cell: (row, index) => <div>{index + 1}</div>,
+      width: '50px'
     },
     {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
+      width: 'auto'
     },
     {
       name: "Department",
@@ -62,7 +75,7 @@ function ListDoctor() {
         <h1
           className={`bg-${
             row.duty ? "green" : "blue"
-          }-600 px-4 py-1 text-white rounded-md  text-base cursor-pointer font-semibold `}
+          }-600 px-2 py-1 text-white rounded-md w-[65px] text-base text-center cursor-pointer font-semibold `}
         >
           {row.duty ? "ON" : "OFF"}
         </h1>
@@ -75,9 +88,7 @@ function ListDoctor() {
           onClick={() => {
             handleBlock(row._id);
           }}
-          className={`bg-${
-            row.isDisabled ? "green" : "blue"
-          }-600 px-4 py-1 text-white rounded-md cursor-pointer text-base font-semibold`}
+          className={`${row.isDisabled ? "bg-green-600" : "bg-red-600"} px-2 py-1 text-white w-[100px] text-center rounded-md cursor-pointer text-base font-semibold`}
         >
           {row.isDisabled ? "Unblock" : "Block"}
         </h1>

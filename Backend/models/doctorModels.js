@@ -51,7 +51,7 @@ doctorSchema.statics.login = async function (email, password) {
     if (!doctor) {
         throw Error('Invalid email or password')
     }
-    if (password === !doctor.password) {
+    if (password != doctor.password) {
         throw Error('Invalid email or password')
     }
     return doctor

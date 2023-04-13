@@ -3,18 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
 import { FaRegEye, FaUserEdit } from "react-icons/fa";
-
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function AdmittedPatients() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setsearch] = useState("");
   const [filterData, setFilterData] = useState([]);
+  const { nurse } = useAuthContext();
 
   const getData = async () => {
     try {
       const response = await axios.get(
         "http://localhost:4000/api/nurse/patients", {
-         
+          headers: {
+            Authorization: `Bearer ${nurse.token}`,
+          },
         }
       );
       setData(response.data);

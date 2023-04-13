@@ -27,9 +27,22 @@ const prescriptionSchema = Schema({
         default: null
 
     },
-    remark: {
+    firstDose: {
         type: String,
         default:null
-    }
+    },
+    secondDose: {
+        type: String,
+        default:null
+    },
+    thirdDose: {
+        type: String,
+        default:null
+    },
+    remark: {
+        type: String,
+        default: null
+    },
+
 }, { timestamps: true })
 module.exports = mongoose.model('Prescription', prescriptionSchema)

@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaCaretDown } from "react-icons/fa";
-
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function DrugForm(props) {
   const [name, setName] = useState("");
   const [route, setRoute] = useState("");
   const [manufaturer, setManufaturer] = useState("");
-
+  const { superAdmin } = useAuthContext();
   const addDoc = async (e) => {
     e.preventDefault();
 
     try {
-      const  response  = await axios.post(props.api, {
-        name,
-        route,
-        manufaturer,
-      });
-      if (response) {
+      const response = await axios.post(
+        props.api,
+        {
+          name,
+          route,
+          manufaturer,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${superAdmin.token}`,
+          },
+        }
+      );
+      if (response.status == 200) {
         setName("");
         setRoute("");
         setManufaturer("");

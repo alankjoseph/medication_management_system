@@ -1,15 +1,18 @@
 const express =  require('express')
 const router = express.Router()
 const docController = require('../controllers/doctor/docController')
+const doctorAuth = require('../middleware/doctorAuth')
 
-router.post('/doctorLogin',docController.doctorLogin)
-
+router.post('/doctorLogin', docController.doctorLogin)
+router.patch('/updateDrug/:id', docController.updateDrug)
+router.patch('/admit/:id', docController.admit)
+router.patch('/markDuty/:id',docController.markDuty)
+router.use(doctorAuth)
 router.get('/getBooking', docController.todaysBooking)
+router.get('/getDoctor/:id',docController.singleDoctor)
 router.post('/addDrugs', docController.addDrugs)
 router.get('/patientDrugs/:id', docController.patientDrugs)
 router.get('/singlePatient/:id',docController.singlePatient)
-router.patch('/admit/:id', docController.admit)
 router.delete('/deleteDrug/:id', docController.deleteSingleDrug)
 router.get('/singleDrug/:id', docController.getSingleDrug)
-router.patch('/updateDrug/:id',docController.updateDrug)
 module.exports = router

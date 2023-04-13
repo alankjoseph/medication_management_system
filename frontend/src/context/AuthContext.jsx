@@ -15,6 +15,11 @@ export const authReducer = (state, action) => {
             return { doctor: action.payload }
         case 'DOCTORLOGOUT':
             return { doctor: null }
+        case 'NURSELOGIN':
+            return { nurse: action.payload }
+        case 'NURSELOGOUT':
+            return { nurse: null }
+        
         default :
             return state
     }
@@ -24,11 +29,13 @@ export const AuthContextProvider = ({ children }) => {
         admin: null,
         superAdmin: null,
         doctor: null,
+        nurse: null
     })
     useEffect(() => {
         const admin = JSON.parse(localStorage.getItem('admin'))
         const superAdmin = JSON.parse(localStorage.getItem('superAdmin'))
         const doctor = JSON.parse(localStorage.getItem('doctor'))
+        const nurse = JSON.parse(localStorage.getItem('nurse'))
         if (admin) {
             dispatch({ type: 'LOGIN', payload: admin })
         }
@@ -36,7 +43,10 @@ export const AuthContextProvider = ({ children }) => {
             dispatch({type:'SUPERLOGIN', payload:superAdmin})
         }
         if (doctor) {
-            dispatch({type:'DOCTORLOGIN', payload:superAdmin})
+            dispatch({type:'DOCTORLOGIN', payload:doctor})
+        }
+        if (nurse) {
+            dispatch({type:'NURSELOGIN', payload:nurse})
         }
         
     },[])

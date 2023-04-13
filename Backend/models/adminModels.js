@@ -48,7 +48,7 @@ adminSchema.statics.login = async function (email, password) {
     if (!admin) {
         throw Error('Invalid email or password')
     }
-    if (password === !admin.password) {
+    if (password != admin.password) {
         throw Error('Invalid email or password')
     }
     return admin

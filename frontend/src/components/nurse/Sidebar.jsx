@@ -5,12 +5,15 @@ import { BiUserPlus } from "react-icons/bi";
 import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa";
 import { RiLogoutBoxLine } from "react-icons/ri";
-
+import { useNurseLogout } from "../../hooks/nurse/useNurseLogout";
 function Sidebar() {
   const [open, setOpen] = useState(true);
-
+  const { logout } = useNurseLogout();
+  const handleLogout = () => {
+    logout();
+  };
   const Menus = [
-    { title: "Dashboard", link: "", icon: <MdDashboard /> },
+    // { title: "Dashboard", link: "", icon: <MdDashboard /> },
     { title: "Admited Patients", link: "/admitedPatients", icon: <FaHospitalUser /> },
   ];
   useEffect(() => {
@@ -75,6 +78,7 @@ function Sidebar() {
               <RiLogoutBoxLine />
             </span>
             <p
+              onClick={handleLogout}
               className={`text-base font-medium flex-1 duration-200 ${
                 !open && "hidden"
               }`}

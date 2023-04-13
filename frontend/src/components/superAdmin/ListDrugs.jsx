@@ -2,16 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
-
+import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function ListDrugs() {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [search, setsearch] = useState("");
   const [filterData, setFilterData] = useState([]);
-  
+  const { superAdmin } = useAuthContext();
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/superAdmin/drugs"
+        "http://localhost:4000/api/superAdmin/drugs",
+        {
+          headers: {
+            Authorization: `Bearer ${superAdmin.token}`,
+          },
+        }
       );
       setData(response.data);
       setFilterData(response.data);
@@ -19,37 +24,35 @@ function ListDrugs() {
       console.log(error);
     }
   };
-    const columns = [
-        
-        {
-          name: "Drug ID",
-          selector: (row) => row._id,
-          sortable: true,
-        },
-        {
-          name: "Drug Name",
-          selector: (row) => row.name,
-        },
-        {
-          name: "Manufacturer",
-          selector: (row) => row.manufaturer,
-        },
-        {
-          name: "Route",
-          selector: (row) => row.route,
-        }
-        
-    ];
-    useEffect(() => {
-        getData();
-      }, []);
-    
-      useEffect(() => {
-        const result = data.filter((item) => {
-          return item.name.toLowerCase().match(search.toLowerCase());
-        });
-        setFilterData(result);
-      }, [search]);
+  const columns = [
+    {
+      name: "Drug ID",
+      selector: (row) => row._id,
+      sortable: true,
+    },
+    {
+      name: "Drug Name",
+      selector: (row) => row.name,
+    },
+    {
+      name: "Manufacturer",
+      selector: (row) => row.manufaturer,
+    },
+    {
+      name: "Route",
+      selector: (row) => row.route,
+    },
+  ];
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    const result = data.filter((item) => {
+      return item.name.toLowerCase().match(search.toLowerCase());
+    });
+    setFilterData(result);
+  }, [search]);
   return (
     <BaseTable
       columns={columns}
@@ -73,7 +76,7 @@ function ListDrugs() {
         </Link>
       }
     />
-  )
+  );
 }
 
-export default ListDrugs
+export default ListDrugs;

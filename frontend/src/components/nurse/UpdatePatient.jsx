@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
-
 function UpdatePatient() {
-  const { admin } = useAuthContext();
   const { id } = useParams();
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -19,15 +17,16 @@ function UpdatePatient() {
   const [reason, setReason] = useState("");
   const [weight, setWeight] = useState("");
   const [availableDoctors, setAvailableDoctors] = useState([]);
-  const [error, setError] = useState(null)
-
+  const [error, setError] = useState(null);
+  const { nurse } = useAuthContext();
   useEffect(() => {
     const getPatient = async () => {
       const { data } = await axios.get(
-        `http://localhost:4000/api/nurse/singlePatient/${id}`, {
+        `http://localhost:4000/api/nurse/singlePatient/${id}`,
+        {
           headers: {
-            Authorization: `Bearer ${admin.token}`,
-          }
+            Authorization: `Bearer ${nurse.token}`,
+          },
         }
       );
       setName(data.patient.name);
@@ -41,32 +40,28 @@ function UpdatePatient() {
       setReason(data.patient.reason);
       setWeight(data.patient.weight);
     };
-    if (admin) {
-      getPatient();
-      
-    }
-  }, [admin]);
+
+    getPatient();
+  }, []);
 
   useEffect(() => {
-    const fetchDoctors =async () => {
+    const fetchDoctors = async () => {
       axios
-      .get("http://localhost:4000/api/superAdmin/doctors", {
-        headers: {
-          Authorization: `Bearer ${admin.token}`,
-        }
-      })
-      .then((response) => {
-        setAvailableDoctors(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
-    if (admin) {
-      fetchDoctors()
-    }
-    
-  }, [admin]);
+        .get("http://localhost:4000/api/superAdmin/doctors", {
+          headers: {
+            Authorization: `Bearer ${nurse.token}`,
+          },
+        })
+        .then((response) => {
+          setAvailableDoctors(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    fetchDoctors();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
@@ -77,8 +72,8 @@ function UpdatePatient() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!admin) {
-      setError('You must be logged in')
-      return
+      setError("You must be logged in");
+      return;
     }
 
     // Submit the form data to the server or do something else with it here
@@ -95,10 +90,11 @@ function UpdatePatient() {
         advisingDoctor,
         bloodPresure,
         reason,
-      },{
+      },
+      {
         headers: {
           Authorization: `Bearer ${admin.token}`,
-        }
+        },
       }
     );
   };
@@ -326,11 +322,11 @@ function UpdatePatient() {
           >
             Cancel
           </button>
-          {error && <div className="text-red-500 ">{error }</div>}
+          {error && <div className="text-red-500 ">{error}</div>}
         </div>
       </form>
     </div>
   );
 }
 
-export default UpdatePatient
+export default UpdatePatient;

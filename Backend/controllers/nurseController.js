@@ -38,5 +38,21 @@ module.exports = {
     allNurse: async (req, res)=>{
         const nurse = await Nurse.find({})
         res.status(200).json(nurse)
+    },
+    blockNurse: async (req, res) => {
+        try {
+            console.log('api called');
+            const { id } = req.params;
+            console.log(id);
+            const nurse = await Nurse.findById(id);
+            const isDisabled = nurse.isDisabled ? false : true;
+            await Nurse.findByIdAndUpdate(id, { $set: { isDisabled } });
+            res.status(200).json({ success: true });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false });
+        }
+        
+       
     }
 }

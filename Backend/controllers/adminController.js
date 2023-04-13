@@ -65,5 +65,17 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+    blockAdmin: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const admin = await Admin.findById(id);
+            const isDisabled = admin.isDisabled ? false : true;
+            await Admin.findByIdAndUpdate(id, { $set: { isDisabled } });
+            res.status(200).json({ success: true });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false });
+        }
+    },
 }

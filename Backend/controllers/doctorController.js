@@ -1,6 +1,7 @@
 const Doctor = require('../models/doctorModels')
 const mailer = require('../config/passMailer')
 
+
 module.exports = {
     doctorLogin: async (req, res) => {
         
@@ -36,6 +37,7 @@ module.exports = {
     },
     blockDoctor: async (req, res) => {
         try {
+            console.log('api called');
             const { id } = req.params;
             const doctor = await Doctor.findById(id);
             const isDisabled = doctor.isDisabled ? false : true;
@@ -47,5 +49,6 @@ module.exports = {
         }
         
        
-    }
+    },
+    
 }

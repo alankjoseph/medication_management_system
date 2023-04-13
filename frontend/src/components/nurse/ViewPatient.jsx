@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
 
 function ViewPatient() {
-  const { admin } = useAuthContext();
+  const { nurse } = useAuthContext();
   const { id } = useParams();
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -26,7 +26,11 @@ function ViewPatient() {
 
   const fetchPatient = async () => {
     const { data } = await axios.get(
-      `http://localhost:4000/api/nurse/singlePatient/${id}`
+      `http://localhost:4000/api/nurse/singlePatient/${id}`, {
+        headers: {
+          Authorization: `Bearer ${nurse.token}`,
+        },
+      }
     );
     setPatientID(data.patient._id)
     setName(data.patient.name);
@@ -42,6 +46,7 @@ function ViewPatient() {
     setDate(data.patient.createdAt)
 
   };
+ 
   
 
   useEffect(() => {

@@ -51,7 +51,7 @@ nurseSchema.statics.login = async function (email, password) {
     if (!nurse) {
         throw Error('Invalid email or password')
     }
-    if (password === !nurse.password) {
+    if (password != nurse.password) {
         throw Error('Invalid email or password')
     }
     return nurse

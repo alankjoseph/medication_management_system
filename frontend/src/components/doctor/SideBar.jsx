@@ -14,7 +14,7 @@ function SideBar() {
     logout();
   };
   const Menus = [
-    { title: "Dashboard", link: "", icon: <MdDashboard /> },
+    { title: "Dashboard", link: "/doctorHome", icon: <MdDashboard /> },
     {
       title: "Today's Appointment",
       link: "/booking",

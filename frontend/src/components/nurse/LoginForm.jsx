@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-
+import { useNurseLogin } from "../../hooks/nurse/useNurseLogin";
 function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {login, error} = useNurseLogin()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await login(email, password);
+
   };
   return (
     <div className="h-screen  flex justify-center items-center  ">
@@ -43,6 +46,7 @@ function LoginForm(props) {
         >
           Login
         </button>
+        {error && <div className="p-1 bg-[#ffefef] border border-solid border-[#e7195a] text-center text-[#e7195a] rounded my-3">{error}</div> }
       </form>
     </div>
   );

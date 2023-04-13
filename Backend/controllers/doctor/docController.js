@@ -15,9 +15,22 @@ module.exports = {
       const doctor = await Doctor.login(email, password)
       const token = createToken(doctor._id)
       const doctorID = doctor._id
-      res.status(200).json({ email, doctorID, token })
+      const department = doctor.department
+      const doc = await Doctor.find({ department: department })
+      const docCount = doc.length
+      res.status(200).json({ email, doctorID, department,docCount, token })
     } catch (error) {
       res.status(400).json({ error: error.message })
+    }
+  },
+  singleDoctor: async (req, res) => {
+    try {
+      const { id } = req.params
+      const doctor = await Doctor.findById(id)
+      console.log(doctor);
+      res.status(200).json(doctor)
+    } catch (error) {
+      console.log(error);
     }
   },
   todaysBooking: async (req, res) => {
@@ -26,6 +39,8 @@ module.exports = {
       // today.setHours(0, 0, 0, 0)
       // const query = { createdAt: { $gte: today } }
       // const bookings = await Patient.find( query )
+      const DoctorID = req.doctor._id
+      console.log(DoctorID);
       const bookings = await Patient.find({})
       if (!bookings.length === 0) {
         res.status(200).json({ msg: "no booking" })
@@ -41,11 +56,18 @@ module.exports = {
   addDrugs: async (req, res) => {
     try {
       const { drugName, drugID, route, patientID } = req.body
-      const addPrescription = new Prescription({
-        drugName, drugID, patientID, route
-      })
-      await addPrescription.save()
-      res.status(200)
+      const prescription = await Prescription.find({ $and: [{ drugID: drugID }, { patientID: patientID }] })
+      if (prescription.length == 0) {
+        const addPrescription = new Prescription({
+          drugName, drugID, patientID, route
+        })
+        await addPrescription.save()
+        res.status(200).json(addPrescription)
+      } else {
+        res.status(300).json({ exist: true })
+        console.log('exixt');
+      }
+        
     } catch (error) {
       console.log(error);
     }
@@ -120,6 +142,18 @@ module.exports = {
       return res.status(200).json(updateDrug)
     } catch (error) {
       console.log(error)
+    }
+  },
+  markDuty: async (req, res) => {
+    try {
+      const { id } = req.params
+      const doctor = await Doctor.findById(id)
+      const duty = doctor.duty ? false : true
+      await Doctor.findByIdAndUpdate(id, { $set: { duty } })
+      res.status(200).json({ success: true })
+
+    } catch (error) {
+      console.log(error);
     }
   }
 }
