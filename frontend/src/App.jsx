@@ -65,10 +65,10 @@ function App() {
           <Route path="/patient/:id" element={admin ? <PatientEdit /> : <Navigate to={'/admin'} />} />
 
           {/* doctor */}
-          <Route path="/doctor" element={!doctor ? <LoginDoctor />: <Navigate to={'/doctorHome'}/>} />
-          <Route path="/doctorHome" element={doctor ? <HomeDoctor /> : <Navigate to={'/doctor'}/> } />
-          <Route path="/booking" element={doctor ? <Booking />:  <Navigate to={'/doctor'}/>} />
-          <Route path="/doctorPatient/:id" element={doctor ? <MainDoctor /> :<Navigate to={'/doctor'}/>  } />
+          <Route path="/" element={!doctor ? <LoginDoctor />: <Navigate to={'/doctorHome'}/>} />
+          <Route path="/doctorHome" element={doctor ? <HomeDoctor /> : <Navigate to={'/'}/> } />
+          <Route path="/booking" element={doctor ? <Booking />:  <Navigate to={'/'}/>} />
+          <Route path="/doctorPatient/:id" element={doctor ? <MainDoctor /> :<Navigate to={'/'}/>  } />
 
           {/* nurse */}
 
