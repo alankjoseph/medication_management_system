@@ -4,7 +4,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
 import { FaRegEye } from "react-icons/fa";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
-function ViewBookings() {
+
+function Mypatients() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setsearch] = useState("");
@@ -12,14 +13,11 @@ function ViewBookings() {
   const { doctor } = useAuthContext();
   const getData = async () => {
     try {
-      const response = await axios.get(
-        "/api/doctor/getBooking",
-        {
-          headers: {
-            Authorization: `Bearer ${doctor.token}`,
-          },
-        }
-      );
+      const response = await axios.get("/api/doctor/myPatients", {
+        headers: {
+          Authorization: `Bearer ${doctor.token}`,
+        },
+      });
       setData(response.data);
       setFilterData(response.data);
     } catch (error) {
@@ -64,7 +62,7 @@ function ViewBookings() {
       cell: (row) => (
         <button
           className="  px-4 py-2  text-base font-semibold rounded"
-          onClick={() => navigate(`/doctorPatient/${row._id}`)}
+          onClick={() => navigate(`/patientView/${row._id}`)}
         >
           <FaRegEye className="text-3xl cursor-pointer text-gray-900 " />
         </button>
@@ -86,7 +84,7 @@ function ViewBookings() {
     <BaseTable
       columns={columns}
       data={filterData}
-      title={<h1 className="font-semibold  text-4xl">Today's Booking</h1>}
+      title={<h1 className="font-semibold  text-4xl">My Patients</h1>}
       subHeader
       subHeaderComponent={
         <input
@@ -101,4 +99,4 @@ function ViewBookings() {
   );
 }
 
-export default ViewBookings;
+export default Mypatients;

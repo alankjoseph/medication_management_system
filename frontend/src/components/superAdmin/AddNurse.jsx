@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../instance/axios";
 import { FaCaretDown } from "react-icons/fa";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function AddNurse(props) {
@@ -13,7 +13,7 @@ function AddNurse(props) {
   const { superAdmin } = useAuthContext();
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/superAdmin/department", {
+      .get("/api/superAdmin/department", {
         headers: {
           Authorization: `Bearer ${superAdmin.token}`,
         },

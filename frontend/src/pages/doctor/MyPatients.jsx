@@ -1,10 +1,9 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
 import SideBar from '../../components/doctor/SideBar'
-import { useAuthContext } from '../../hooks/admin/useAuthContext'
-import Dashboard from '../../components/doctor/Dashboard'
-function HomeDoctor() {
-  const { doctor } = useAuthContext()
+import Mypatients from '../../components/doctor/Mypatients'
+
+function MyPatients() {
   
   return (
     <div>
@@ -17,11 +16,11 @@ function HomeDoctor() {
         </div>
         <div className="p-10 w-full">
           
-          <Dashboard/>
+          <Mypatients/>
         </div>
       </div>
     </div>
   )
 }
 
-export default HomeDoctor
+export default MyPatients

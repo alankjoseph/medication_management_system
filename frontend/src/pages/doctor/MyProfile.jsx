@@ -1,11 +1,8 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
 import SideBar from '../../components/doctor/SideBar'
-import { useAuthContext } from '../../hooks/admin/useAuthContext'
-import Dashboard from '../../components/doctor/Dashboard'
-function HomeDoctor() {
-  const { doctor } = useAuthContext()
-  
+import Profile from '../../components/doctor/Profile'
+function MyProfile() {
   return (
     <div>
       <div className=" w-full">
@@ -17,11 +14,11 @@ function HomeDoctor() {
         </div>
         <div className="p-10 w-full">
           
-          <Dashboard/>
+          <Profile name={'Alan'} age={'24'} department={'Oncology'} email={'ala@gmaill.com'} phone={'37289437'}/>
         </div>
       </div>
     </div>
   )
 }
 
-export default HomeDoctor
+export default MyProfile

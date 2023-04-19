@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
@@ -11,7 +11,7 @@ function ListNurse() {
   const handleBlock = async (id) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/superAdmin/blockNurse/${id}`,
+        `/api/superAdmin/blockNurse/${id}`,
         {
           headers: {
             Authorization: `Bearer ${superAdmin.token}`,
@@ -27,7 +27,7 @@ function ListNurse() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/superAdmin/nurse",
+        "/api/superAdmin/nurse",
         {
           headers: {
             Authorization: `Bearer ${superAdmin.token}`,

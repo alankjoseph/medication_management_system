@@ -13,7 +13,8 @@ module.exports = {
             const token = createToken(admin._id)
             res.status(200).json({ email, token })
         } catch (error) {
-            res.status(400).json({ error: error.message })
+            console.log(error.message);
+            res.status(404).json({ message: error.message })
 
         }
     },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../instance/axios";
 import { useParams } from "react-router-dom";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function PatientDetails() {
@@ -12,24 +12,23 @@ function PatientDetails() {
   const [bloodPresure, setBloodPresure] = useState("");
   const [reason, setReason] = useState("");
   const [isAdmit, setIsAdmit] = useState("");
+
   const { doctor } = useAuthContext();
-  
+
   const handleAdmit = async () => {
-    await axios.patch(`http://localhost:4000/api/doctor/admit/${id}`, {
+    await axios.patch(`/api/doctor/admit/${id}`, {
       headers: {
         Authorization: `Bearer ${doctor.token}`,
       },
     });
-    getPatient()
+    getPatient();
   };
   const getPatient = async () => {
-    const { data } = await axios.get(
-      `http://localhost:4000/api/doctor/singlePatient/${id}`, {
-        headers: {
-          Authorization: `Bearer ${doctor.token}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`/api/doctor/singlePatient/${id}`, {
+      headers: {
+        Authorization: `Bearer ${doctor.token}`,
+      },
+    });
     setName(data.patient.name);
     setAge(data.patient.age);
     setGender(data.patient.gender);
@@ -39,9 +38,18 @@ function PatientDetails() {
     setIsAdmit(data.patient.isAdmit);
   };
   useEffect(() => {
-    
     getPatient();
-  },[]);
+  }, []);
+
+  const handleComplete = async () => {
+    await axios.patch(`/api/doctor/complete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${doctor.token}`,
+      },
+    });
+    fetchPatient();
+  };
+
 
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
@@ -69,7 +77,9 @@ function PatientDetails() {
           </p>
           <p className="text-gray-800 font-medium">
             BP:
-            <span className="text-gray-600 ml-2 font-normal">{bloodPresure}</span>
+            <span className="text-gray-600 ml-2 font-normal">
+              {bloodPresure}
+            </span>
           </p>
           <p className="text-gray-800 font-medium">
             Age:
@@ -86,7 +96,9 @@ function PatientDetails() {
         </div>
         <div className="mt-3">
           <div className="flex flex-col md:flex-row md:justify-end md:items-center gap-2">
-            <button className="bg-gradient-to-r from-green-500 to-emerald-500 text-base font-semibold hover:bg-gradient-to-r hover:from-green-700 hover:to-emerald-700 px-4 py-1 rounded-md shadow-md hover:shadow-lg text-white">Completed</button>
+            <button onClick={handleComplete} className="bg-gradient-to-r from-green-500 to-emerald-500 text-base font-semibold hover:bg-gradient-to-r hover:from-green-700 hover:to-emerald-700 px-4 py-1 rounded-md shadow-md hover:shadow-lg text-white">
+              Completed
+            </button>
             {isAdmit ? (
               <button
                 onClick={handleAdmit}

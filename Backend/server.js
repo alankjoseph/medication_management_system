@@ -3,11 +3,15 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const path = require('path')
 const superAdminRoutes = require('./routes/superAdmin')
 const adminRoutes = require('./routes/admin')
 const doctorRoutes = require('./routes/doctor')
 const nurseRoutes = require('./routes/nurse')
 const app = express()
+
+
+
 dotenv.config()
 
 

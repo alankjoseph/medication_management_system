@@ -50,8 +50,30 @@ module.exports = {
     } catch (error) {
       console.log(error);
     }
+  },
+  singleNurse: async (req, res) => {
+    try {
 
-
+      const { id } = req.params
+      const nurse = await Nurse.findById(id)
+      res.status(200).json(nurse)
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  changePassword: async (req, res) => {
+    try {
+      const { id, currentPassword, newPassword, cPassword } = req.body
+      const nurse = await Nurse.findById(id)
+      if (nurse.password === currentPassword) {
+        const changePassword = await Nurse.findByIdAndUpdate(id, { $set: { password: newPassword } })
+        res.status(200).json({ msg: 'success' })
+      } else {
+        res.status(404).json({ error: 'No such data' })
+      }
+    } catch (error) {
+      res.status(404).json({error: error.message})
+    }
   }
 
 }

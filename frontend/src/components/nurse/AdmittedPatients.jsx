@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
@@ -14,7 +14,7 @@ function AdmittedPatients() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/nurse/patients", {
+        "/api/nurse/patients", {
           headers: {
             Authorization: `Bearer ${nurse.token}`,
           },

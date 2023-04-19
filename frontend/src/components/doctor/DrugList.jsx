@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
@@ -16,7 +16,7 @@ function DrugList({add,setAdd}) {
   const handleAddDrugs = async (drugID, drugName, route) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/doctor/addDrugs",
+        "/api/doctor/addDrugs",
         {
           drugName,
           drugID,
@@ -51,7 +51,7 @@ function DrugList({add,setAdd}) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/superAdmin/drugs",
+        "/api/superAdmin/drugs",
         {
           headers: {
             Authorization: `Bearer ${doctor.token}`,

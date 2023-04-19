@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useAuthContext } from "../admin/useAuthContext"
+import axios from '../../instance/axios'
 
 export const useSuperLogin = () => {
     const [error, setError] = useState(null)
@@ -8,27 +9,22 @@ export const useSuperLogin = () => {
     const login = async (email, password) => {
         setIsLoading(true)
         setError(null)
-        const response = await fetch('http://localhost:4000/api/superAdmin/superAdminLogin', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
-        const json = await response.json()
-        if (!response.ok) {
-            setIsLoading(false)
-            setError(json.error)
 
-        }
-        if (response.ok) {
+        try {
+            const response = await axios.post('/api/superAdmin/superAdminLogin', { email, password })
+            const json = response.data
+
             // save the user to the local storage
             localStorage.setItem('superAdmin', JSON.stringify(json))
 
             // update the auth context
             dispatch({ type: 'SUPERLOGIN', payload: json })
             setIsLoading(false)
-
-
+        } catch (error) {
+            setIsLoading(false)
+            setError(error.response.data.error)
         }
     }
-    return {login, isLoading, error}
+
+    return { login, isLoading, error }
 }

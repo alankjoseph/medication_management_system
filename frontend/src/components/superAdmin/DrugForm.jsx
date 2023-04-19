@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../instance/axios";
 import { FaCaretDown } from "react-icons/fa";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function DrugForm(props) {

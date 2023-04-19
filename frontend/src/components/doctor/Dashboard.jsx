@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
-import axios from "axios";
+import axios from "../../instance/axios";
 
 function Dashboard() {
   const { doctor } = useAuthContext();
@@ -8,7 +8,7 @@ function Dashboard() {
   const getDoctor = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/doctor/getDoctor/${doctor.doctorID}`, {
+        `/api/doctor/getDoctor/${doctor.doctorID}`, {
           headers: {
             Authorization: `Bearer ${doctor.token}`,
           },
@@ -25,7 +25,7 @@ function Dashboard() {
   },[])
   const handleClick = async (id) => {
     console.log(id);
-    await axios.patch(`http://localhost:4000/api/doctor/markDuty/${id}`, {
+    await axios.patch(`/api/doctor/markDuty/${id}`, {
       headers: {
         Authorization: `Bearer ${doctor.token}`,
       },

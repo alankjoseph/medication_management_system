@@ -41,6 +41,10 @@ const patientSchema = Schema({
         type: Boolean,
         default: false
     },
+    admittedDate: {
+        type: String,
+        default:null
+    },
     isAdmit: {
         type: Boolean,
         default: false

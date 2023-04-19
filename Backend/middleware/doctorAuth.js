@@ -11,6 +11,7 @@ const doctorAuth = async (req, res, next) => {
   try {
     const { _id } = jwt.verify(token, process.env.SECRET)
     req.doctor = await Doctor.findOne({ _id }).select('_id')
+    req.doctorName = await Doctor.findOne({ _id }).select('name')
     next()
   } catch (error) {
     res.status(404).json({ error: 'Request is not Authorized' })

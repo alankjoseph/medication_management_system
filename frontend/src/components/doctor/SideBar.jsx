@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BsArrowLeftShort, BsHeartPulse } from "react-icons/bs";
-import { BiUserPlus } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
 import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import {CgProfile} from 'react-icons/cg'
 import { useDoctorLogout } from "../../hooks/doctor/useDoctorLogout";
 
 function SideBar() {
@@ -19,6 +20,16 @@ function SideBar() {
       title: "Today's Appointment",
       link: "/booking",
       icon: <FaHospitalUser />,
+    },
+    {
+      title: "My patients",
+      link: "/myPatinets",
+      icon: <FiUsers />,
+    },
+    {
+      title: "My Profile",
+      link: "/myProfile",
+      icon: <CgProfile />,
     },
   ];
   useEffect(() => {

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -23,7 +23,7 @@ function EditPatient() {
   useEffect(() => {
     const getPatient = async () => {
       const { data } = await axios.get(
-        `http://localhost:4000/api/admin/singlePatient/${id}`, {
+        `/api/admin/singlePatient/${id}`, {
           headers: {
             Authorization: `Bearer ${admin.token}`,
           }
@@ -50,7 +50,7 @@ function EditPatient() {
   useEffect(() => {
     const fetchDoctors =async () => {
       axios
-      .get("http://localhost:4000/api/superAdmin/doctors", {
+      .get("/api/superAdmin/doctors", {
         headers: {
           Authorization: `Bearer ${admin.token}`,
         }
@@ -83,7 +83,7 @@ function EditPatient() {
 
     // Submit the form data to the server or do something else with it here
     const { data } = await axios.patch(
-      `http://localhost:4000/api/admin/updatePatient/${id}`,
+      `/api/admin/updatePatient/${id}`,
       {
         name,
         age,

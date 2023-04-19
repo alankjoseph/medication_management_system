@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
@@ -21,7 +21,7 @@ function AddPatients() {
   useEffect(() => {
     const fetchDoctors = async () => {
       axios
-        .get("http://localhost:4000/api/superAdmin/doctors", {
+        .get("/api/superAdmin/doctors", {
           headers: {
             Authorization: `Bearer ${admin.token}`,
           },
@@ -53,7 +53,7 @@ function AddPatients() {
    
     // Submit the form data to the server or do something else with it here
     const { data } = await axios.post(
-      "http://localhost:4000/api/admin/AddPatient",
+      "/api/admin/AddPatient",
       {
         name,
         age,

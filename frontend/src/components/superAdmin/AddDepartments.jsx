@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useState } from "react";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
 function AddDepartments(props) {

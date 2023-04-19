@@ -26,13 +26,19 @@ import LoginDoctor from "./pages/doctor/LoginDoctor";
 import HomeDoctor from "./pages/doctor/HomeDoctor";
 import Booking from "./pages/doctor/Booking";
 import MainDoctor from "./pages/doctor/MainDoctor";
-
+import MyPatients from "./pages/doctor/MyPatients";
+import SingleMyPatientView from "./pages/doctor/SingleMyPatientView";
+import MyProfile from "./pages/doctor/MyProfile";
 
 {/* nurse */ }
 import LoginNurse from "./pages/nurse/LoginNurse";
 import ListAdmitted from "./pages/nurse/ListAdmitted";
 import PatientView from "./pages/nurse/PatientView";
 import UpdatePatientDetails from "./pages/nurse/UpdatePatientDetails";
+import NurseProfilePage from "./pages/nurse/NurseProfilePage";
+
+
+
 
 
 
@@ -65,17 +71,22 @@ function App() {
           <Route path="/patient/:id" element={admin ? <PatientEdit /> : <Navigate to={'/admin'} />} />
 
           {/* doctor */}
-          <Route path="/doctor" element={!doctor ? <LoginDoctor />: <Navigate to={'/doctorHome'}/>} />
-          <Route path="/doctorHome" element={doctor ? <HomeDoctor /> : <Navigate to={'/doctor'}/> } />
-          <Route path="/booking" element={doctor ? <Booking />:  <Navigate to={'/doctor'}/>} />
-          <Route path="/doctorPatient/:id" element={doctor ? <MainDoctor /> :<Navigate to={'/doctor'}/>  } />
-
+          <Route path="/" element={!doctor ? <LoginDoctor />: <Navigate to={'/doctorHome'}/>} />
+          <Route path="/doctorHome" element={doctor ? <HomeDoctor /> : <Navigate to={'/'}/> } />
+          <Route path="/booking" element={doctor ? <Booking />:  <Navigate to={'/'}/>} />
+          <Route path="/doctorPatient/:id" element={doctor ? <MainDoctor /> : <Navigate to={'/'} />} />
+          <Route path="/myPatinets" element={doctor ? <MyPatients /> : <Navigate to={'/'} />} />
+          <Route path="/patientView/:id" element={doctor ?<SingleMyPatientView /> : <Navigate to={'/'} />}  />
+          <Route path="/myProfile/" element={doctor ? <MyProfile/> : <Navigate to={'/'} />} />
+          
           {/* nurse */}
 
           <Route path="/nurse" element={!nurse ?<LoginNurse /> : <Navigate to={'/admitedPatients'} /> } />
           <Route path="/admitedPatients" element={ nurse ? <ListAdmitted /> : <Navigate to={'/nurse'} /> } />
           <Route path="/viewDetails/:id" element={ nurse ? <PatientView /> :<Navigate to={'/nurse'}/> } />
           <Route path="/updatePatient/:id" element={nurse ? <UpdatePatientDetails /> : <Navigate to={'/nurse'} />} />
+          <Route path="/nurseProfile" element={<NurseProfilePage/> } />
+          
           
         </Routes>
       </BrowserRouter>

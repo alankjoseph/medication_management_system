@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -22,7 +22,7 @@ function UpdatePatient() {
   useEffect(() => {
     const getPatient = async () => {
       const { data } = await axios.get(
-        `http://localhost:4000/api/nurse/singlePatient/${id}`,
+        `/api/nurse/singlePatient/${id}`,
         {
           headers: {
             Authorization: `Bearer ${nurse.token}`,
@@ -47,7 +47,7 @@ function UpdatePatient() {
   useEffect(() => {
     const fetchDoctors = async () => {
       axios
-        .get("http://localhost:4000/api/superAdmin/doctors", {
+        .get("/api/superAdmin/doctors", {
           headers: {
             Authorization: `Bearer ${nurse.token}`,
           },
@@ -71,14 +71,14 @@ function UpdatePatient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!admin) {
+    if (!nurse) {
       setError("You must be logged in");
       return;
     }
 
     // Submit the form data to the server or do something else with it here
     const { data } = await axios.patch(
-      `http://localhost:4000/api/admin/updatePatient/${id}`,
+      `/api/admin/updatePatient/${id}`,
       {
         name,
         age,
@@ -93,7 +93,7 @@ function UpdatePatient() {
       },
       {
         headers: {
-          Authorization: `Bearer ${admin.token}`,
+          Authorization: `Bearer ${nurse.token}`,
         },
       }
     );

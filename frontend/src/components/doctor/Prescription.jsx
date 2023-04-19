@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import BaseTable from "../../pages/BaseTable";
@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
 
-function Prescription({add}) {
+function Prescription({ add }) {
   const [data, setData] = useState([]);
   const [search, setsearch] = useState("");
   const [filterData, setFilterData] = useState([]);
@@ -24,14 +24,11 @@ function Prescription({add}) {
   const { doctor } = useAuthContext();
   const getDrugs = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/api/doctor/patientDrugs/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${doctor.token}`,
-          },
-        }
-      );
+      const response = await axios.get(`/api/doctor/patientDrugs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${doctor.token}`,
+        },
+      });
       setData(response.data);
       setFilterData(response.data);
     } catch (error) {
@@ -40,12 +37,12 @@ function Prescription({add}) {
   };
   useEffect(() => {
     getDrugs();
-  },[add]);
+  }, [add]);
 
   const handleSubmit = async (id) => {
     console.log(id);
-    const response =  await axios.patch(
-      `http://localhost:4000/api/doctor/updateDrug/${id}`,
+    const response = await axios.patch(
+      `/api/doctor/updateDrug/${id}`,
       {
         dosage,
         numberOfDays,
@@ -57,7 +54,7 @@ function Prescription({add}) {
         },
       }
     );
-    if (response.status == 200 ) {
+    if (response.status == 200) {
       toast.success("Data added", {
         position: "top-right",
         autoClose: 5000,
@@ -68,13 +65,16 @@ function Prescription({add}) {
         progress: undefined,
         theme: "light",
       });
+      setDosage("");
+      setNumberOfDays("");
+      setRemark("");
       getDrugs();
     }
   };
 
   const handelDelete = async (id) => {
     console.log(id);
-    await axios.delete(`http://localhost:4000/api/doctor/deleteDrug/${id}`, {
+    await axios.delete(`/api/doctor/deleteDrug/${id}`, {
       headers: {
         Authorization: `Bearer ${doctor.token}`,
       },
@@ -82,18 +82,18 @@ function Prescription({add}) {
     getDrugs();
   };
   const handleUpdate = async (id) => {
-    const { data } = await axios.get(
-      `http://localhost:4000/api/doctor/singleDrug/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${doctor.token}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`/api/doctor/singleDrug/${id}`, {
+      headers: {
+        Authorization: `Bearer ${doctor.token}`,
+      },
+    });
     console.log(data);
     setPrescriptionID(data._id);
     setDrugID(data.drugID);
     setDrugName(data.drugName);
+    setNumberOfDays(data.numberOfDays);
+    setRemark(data.remark);
+    setDosage(data.dosage);
 
     setModal(!modal);
   };
@@ -256,7 +256,7 @@ function Prescription({add}) {
           </div>
         )}
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 }

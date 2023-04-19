@@ -6,6 +6,7 @@ import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useNurseLogout } from "../../hooks/nurse/useNurseLogout";
+import { CgProfile } from "react-icons/cg";
 function Sidebar() {
   const [open, setOpen] = useState(true);
   const { logout } = useNurseLogout();
@@ -14,7 +15,16 @@ function Sidebar() {
   };
   const Menus = [
     // { title: "Dashboard", link: "", icon: <MdDashboard /> },
-    { title: "Admited Patients", link: "/admitedPatients", icon: <FaHospitalUser /> },
+    {
+      title: "Admited Patients",
+      link: "/admitedPatients",
+      icon: <FaHospitalUser />,
+    },
+    {
+      title: "My Profile",
+      link: "/nurseProfile",
+      icon: <CgProfile />,
+    },
   ];
   useEffect(() => {
     function handleResize() {
@@ -92,4 +102,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar
+export default Sidebar;
