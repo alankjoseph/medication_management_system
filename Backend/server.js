@@ -17,18 +17,12 @@ dotenv.config()
 
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(
-    cors({
-        origin: ['http://medicationsystem.online'],
-        methods: ['GET', 'POST','PATCH','DELETE'],
-        credentials: true
-    })
-)
+app.use(cors())
 
 app.use('/api/superAdmin', superAdminRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/doctor', doctorRoutes)
-app.use('/api/nurse',nurseRoutes)
+app.use('/api/nurse', nurseRoutes)
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGO_URI)

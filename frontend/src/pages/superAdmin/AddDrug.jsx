@@ -13,7 +13,7 @@ function AddDrug() {
         <div className="p-10 w-full">
           <DrugForm
             title=" Drug"
-            api="http://localhost:4000/api/superAdmin/addDrug"
+            api="https://medicationsystem.online/api/superAdmin/addDrug"
           />
         </div>
       </div>

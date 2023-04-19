@@ -11,7 +11,7 @@ function AddAdmin() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <Add title="Admin" api='http://localhost:4000/api/superAdmin/addAdmin' />
+                    <Add title="Admin" api='https://medicationsystem.online/api/superAdmin/addAdmin' />
                 </div>
             </div>
         </div>

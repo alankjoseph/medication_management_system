@@ -109,7 +109,7 @@ function PrescribedDrugs() {
             console.log("Checkbox 1 was checked");
             const currentDate = new Date().toString();
             await axios.patch(
-              `http://localhost:4000/api/nurse/dosage/${row._id}`,
+              `/api/nurse/dosage/${row._id}`,
               {
                 firstDose:currentDate
               },
@@ -131,7 +131,7 @@ function PrescribedDrugs() {
             const currentDate = new Date().toString();
             
             await axios.patch(
-              `http://localhost:4000/api/nurse/dosage/${row._id}`,
+              `/api/nurse/dosage/${row._id}`,
               {
                 secondDose :currentDate,
               },
@@ -152,7 +152,7 @@ function PrescribedDrugs() {
             const currentDate = new Date().toString();
            
             await axios.patch(
-              `http://localhost:4000/api/nurse/dosage/${row._id}`,
+              `/api/nurse/dosage/${row._id}`,
               {
                 thirdDose :currentDate,
               },

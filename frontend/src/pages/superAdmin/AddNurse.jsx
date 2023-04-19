@@ -11,7 +11,7 @@ function AddNurse() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <AddNurses title=" Nurse" api='http://localhost:4000/api/superAdmin/addNurse'/>
+                    <AddNurses title=" Nurse" api='https://medicationsystem.online/api/superAdmin/addNurse'/>
                 </div>
             </div>
         </div>

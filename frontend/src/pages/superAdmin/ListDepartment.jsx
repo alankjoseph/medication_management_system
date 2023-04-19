@@ -13,7 +13,7 @@ function ListDepartment() {
         <div className="p-10 w-full">
           <MyComponent
             title="Department List"
-            api="http://localhost:4000/api/superAdmin/department"
+            api="https://medicationsystem.online/api/superAdmin/department"
             link="/addDepartment"
             button="Doctor"
           />

@@ -14,7 +14,7 @@ function Patients() {
                 <div className="p-10 w-full">
                     <ViewPatients
                         title="Patients List"
-                        api="http://localhost:4000/api/admin/patient"
+                        api="https://www.medicationsystem.online/api/admin/patient"
                         link="/addPatients"
                         button="Patient"
                     />
