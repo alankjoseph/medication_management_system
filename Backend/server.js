@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(
     cors({
-        methods: ['GET', 'POST', 'PATCH'],
+        methods: ['GET', 'POST', 'PATCH','DELETE'],
     })
 )
 

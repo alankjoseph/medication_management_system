@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import SideBar from '../../components/doctor/SideBar'
 import { useAuthContext } from '../../hooks/admin/useAuthContext'
@@ -10,6 +10,7 @@ import DrugList from '../../components/doctor/DrugList'
 import Prescription from '../../components/doctor/Prescription'
 
 function SingleMyPatientView() {
+  const [add, setAdd] = useState(false)
   return (
     <div>
       <div className=" w-full">
@@ -22,8 +23,8 @@ function SingleMyPatientView() {
         <div className="p-10 w-full">
           <MyPatientView />
           {/* <MedicationTime /> */}
-          <DrugList/>
-          <Prescription/>
+          <DrugList add={add} setAdd={setAdd}/>
+          <Prescription add={add}/>
         </div>
       </div>
     </div>
