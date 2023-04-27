@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
-function UpdatePatient() {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+function UpdatePatient(props) {
   const { id } = useParams();
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -43,7 +45,7 @@ function UpdatePatient() {
 
     getPatient();
   }, []);
-
+  
   useEffect(() => {
     const fetchDoctors = async () => {
       axios
@@ -77,7 +79,7 @@ function UpdatePatient() {
     }
 
     // Submit the form data to the server or do something else with it here
-    const { data } = await axios.patch(
+    const  response  = await axios.patch(
       `/api/admin/updatePatient/${id}`,
       {
         name,
@@ -97,11 +99,24 @@ function UpdatePatient() {
         },
       }
     );
+    if(response.statusText === 'OK'){
+      toast.success("Updated successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+
   };
 
   return (
     <div>
-      <div className="font-bold text-4xl text-center mb-6">Add Patient</div>
+      <div className="font-bold text-4xl text-center mb-6">{props.title}</div>
       <form onSubmit={handleSubmit} className="mx-auto max-w-lg">
         <div className="mb-4">
           <label className="block font-bold mb-2" htmlFor="name">
@@ -325,6 +340,7 @@ function UpdatePatient() {
           {error && <div className="text-red-500 ">{error}</div>}
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

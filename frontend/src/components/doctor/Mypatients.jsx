@@ -46,8 +46,10 @@ function Mypatients() {
       width: "80px",
     },
     {
-      name: "Blood Group",
-      selector: (row) => row.bloodGroup,
+      name: "Admitted date",
+      selector: (row) => row.admittedDate,
+      width: 'auto',
+      sortable: true
     },
     {
       name: "Gender",

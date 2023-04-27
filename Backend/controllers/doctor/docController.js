@@ -3,7 +3,14 @@ const Patient = require('../../models/patientModels')
 const Prescription = require('../../models/prescriptionModels')
 const Doctor = require('../../models/doctorModels')
 const jwt = require('jsonwebtoken')
-
+const path = require('path');
+const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: 'dnxxq6g1c',
+  api_key: '581257883147512',
+  api_secret: 'NxdRmMJoa9u0G3JalbkpTJOCPKY'
+});
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' })
 }
@@ -193,7 +200,7 @@ module.exports = {
         const changePassword = await Doctor.findByIdAndUpdate(id, { $set: { password: newPassword } })
         res.status(200).json({ msg: 'success' })
       } else {
-        res.status(404).json({ error: 'No such data' })
+        res.status(303).json({ error: 'current password must be same' })
       }
     } catch (error) {
       res.status(404).json({ error: error.message })
@@ -208,7 +215,47 @@ module.exports = {
     } catch (error) {
       res.status(404).json({ err: error.message })
     }
-
+  },
+  medicationTime: async (req, res) => {
+    try {
+      console.log('medicationTime time');
+      const { id } = req.params
+      const prescription = await Prescription.find({ patientID: id })
+     
+      res.status(200).json(prescription)
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  fileUpload: async (req, res) => {
+    const { id } = req.params
+    console.log(id);
+    console.log('upload');
+    const { path } = req.file;
+   
+    const patient = await Patient.findByIdAndUpdate(id, { $set: { scanningReport: path } })
+    res.status(200).json(patient)
+    // const filePath = path.join(__dirname, `uploads/${filename}`);
+    // fs.readFile(filePath, (err, data) => {
+    //   if (err) {
+    //     console.error(err);
+    //     return res.status(500).send('Internal Server Error');
+    //  }
+    
+    
+  },
+  reportDownload: async (req, res) => {
+    console.log('pdf called');
+    const pdfId = 'https://res.cloudinary.com/dnxxq6g1c/image/upload/v1682485772/MedicationManagement/aypgfad5fjivvtxdvd38.pdf';
+    const response = await cloudinary.utils.private_download_url(pdfId, {
+      resource_type: 'raw',
+      attachment: true,
+    });
+    res.set({
+      'Content-Disposition': 'attachment; filename=document.pdf',
+      'Content-Type': 'application/pdf',
+    });
+    res.send(response);
   }
 
 }

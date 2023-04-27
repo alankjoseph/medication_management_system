@@ -106,7 +106,7 @@ function DrugList({add,setAdd}) {
   }, [search]);
 
   return (
-    <>
+    <div className="my-6">
       <BaseTable
         columns={columns}
         data={filterData}
@@ -128,7 +128,7 @@ function DrugList({add,setAdd}) {
         subHeaderAlign="center"
       />
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

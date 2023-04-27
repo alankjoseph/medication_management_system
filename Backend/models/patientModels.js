@@ -30,6 +30,10 @@ const patientSchema = Schema({
     bloodPresure: {
         type: String,
     },
+    scanningReport:{
+        type: String,
+        default:null
+    },
 
     advisingDoctor: {
         type: String,

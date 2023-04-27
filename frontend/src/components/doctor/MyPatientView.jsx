@@ -25,6 +25,7 @@ function MyPatientView() {
   const [isAdmit, setIsAdmit] = useState("");
   const [admittedDate, setAdmittedDate] = useState("");
   const [iscomplete, setIscomplete] = useState("");
+  const [file, setFile] = useState(null);
 
   const fetchPatient = async () => {
     const { data } = await axios.get(`/api/doctor/singlePatient/${id}`, {
@@ -59,6 +60,17 @@ function MyPatientView() {
     });
     fetchPatient();
   };
+  function handleDownload() {
+    axios.get('/download', { responseType: 'blob' })
+      .then((res) => {
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'file.png');
+        document.body.appendChild(link);
+        link.click();
+      });
+  }
   const handleComplete = async () => {
     await axios.patch(`/api/doctor/complete/${id}`, {
       headers: {
@@ -67,11 +79,30 @@ function MyPatientView() {
     });
     fetchPatient();
   };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("pdf", file);
+    axios
+      .post(`/api/doctor/upload/${patientID}`, formData, {
+        headers: {
+          Authorization: `Bearer ${doctor.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
   return (
     <Fragment>
       <div className="text-4xl font-bold mb-4">Patient Details</div>
       <div class="flex justify-center gap-4">
-        <div class="bg-gray-100 rounded-md px-32 py-10 shadow-md ">
+        <div class="bg-gray-100 rounded-md px-24 py-10 shadow-md ">
           <div class="  items-center gap-4 block">
             <p class="text-gray-800 font-medium">
               ID:
@@ -103,7 +134,7 @@ function MyPatientView() {
             </p>
           </div>
         </div>
-        <div class="bg-gray-100 rounded-md px-32 py-10 shadow-md">
+        <div class="bg-gray-100 rounded-md px-10 py-10 shadow-md">
           <div class="  items-center gap-4 block">
             <p class="text-gray-800 font-medium">
               Advising Doctor
@@ -129,15 +160,29 @@ function MyPatientView() {
               Reason:
               <span class="text-gray-600 ml-2 font-normal">{reason}</span>
             </p>
+            <p class="text-gray-800 font-medium">
+              Scanning Report:
+              <form onSubmit={handleFormSubmit}>
+                <div className="flex my-2">
+                  <input type="file" name="pdf" onChange={handleFileChange} />
+                  <button
+                    className="bg-gradient-to-r from-blue-500 to-blue-500 text-base font-semibold hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-700 px-4 py-1 rounded-md shadow-md hover:shadow-lg text-white"
+                    type="submit"
+                  >
+                    Upload
+                  </button>
+                </div>
+              </form>
+            </p>
           </div>
           <div className="mt-3">
             <div className="flex flex-col md:flex-row md:justify-start md:items-center gap-2">
-              {/* <button
-                onClick={handleComplete}
+              <button
+                onClick={handleDownload}
                 className="bg-gradient-to-r from-green-500 to-emerald-500 text-base  font-semibold hover:bg-gradient-to-r hover:from-green-700 hover:to-emerald-700 px-4 py-1 rounded-md shadow-md hover:shadow-lg text-white "
               >
-                Complete
-              </button> */}
+                Download
+              </button>
               {isAdmit ? (
                 <button
                   onClick={handleAdmit}

@@ -38,14 +38,41 @@ module.exports = {
     try {
       const { id } = req.params
       const { firstDose, secondDose, thirdDose } = req.body;
-      
-      const prescription = await Prescription.findByIdAndUpdate(id, {
-        $set: { 
-          firstDose: firstDose, 
-          secondDose: secondDose, 
-          thirdDose: thirdDose 
-        } 
-      })
+      let dateispresent
+      if (firstDose) {
+        const date = firstDose.slice(0, 15)
+        const regex = new RegExp(`${date}`)
+        dateispresent = await Prescription.find({ _id: id, firstDose: { $regex: regex } })
+      } else if (secondDose) {
+        const date = secondDose.slice(0, 15)
+        const regex = new RegExp(`${date}`)
+        dateispresent = await Prescription.find({ _id: id, secondDose: { $regex: regex } })
+      } else if (thirdDose) {
+        const date = thirdDose.slice(0, 15)
+        const regex = new RegExp(`${date}`)
+        dateispresent = await Prescription.find({ _id: id, thirdDose: { $regex: regex } })
+      }
+
+      if (dateispresent.length == 0) {
+        const prescription = await Prescription.findByIdAndUpdate(id, {
+          $push: {
+            firstDose: firstDose,
+            secondDose: secondDose,
+            thirdDose: thirdDose
+          }
+        })
+        return res.status(200).json(prescription)
+      }
+      return res.status(200).json({ msg: 'already given' })
+
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  patientDrugs: async (req, res) => {
+    try {
+      const { id } = req.params
+      const prescription =await Prescription.find({ patientID: id })
       res.status(200).json(prescription)
     } catch (error) {
       console.log(error);
@@ -72,7 +99,7 @@ module.exports = {
         res.status(404).json({ error: 'No such data' })
       }
     } catch (error) {
-      res.status(404).json({error: error.message})
+      res.status(404).json({ error: error.message })
     }
   }
 

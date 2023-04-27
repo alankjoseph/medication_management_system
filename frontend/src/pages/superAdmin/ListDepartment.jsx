@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/superAdmin/SideBar";
 import MyComponent from "../../components/superAdmin/DepartmentList";
+import { BaseUrl } from "../../instance/constants";
 function ListDepartment() {
   return (
     <div>
@@ -13,7 +14,7 @@ function ListDepartment() {
         <div className="p-10 w-full">
           <MyComponent
             title="Department List"
-            api="https://medicationsystem.online/api/superAdmin/department"
+            api={`${BaseUrl}/api/superAdmin/department`}
             link="/addDepartment"
             button="Doctor"
           />

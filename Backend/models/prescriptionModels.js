@@ -27,18 +27,18 @@ const prescriptionSchema = Schema({
         default: null
 
     },
-    firstDose: {
+    firstDose: [{
         type: String,
         default:null
-    },
-    secondDose: {
+    }],
+    secondDose: [{
         type: String,
         default:null
-    },
-    thirdDose: {
+    }],
+    thirdDose: [{
         type: String,
         default:null
-    },
+    }],
     remark: {
         type: String,
         default: null

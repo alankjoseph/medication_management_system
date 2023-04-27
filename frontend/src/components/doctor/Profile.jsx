@@ -64,37 +64,55 @@ function Profile() {
         theme: "light",
       });
     } 
-    const response = await axios.patch(
-       `/api/doctor/changePassword`,
-      {
-        id,
-        cPassword,
-        currentPassword,
-        newPassword,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${doctor.token}`,
-        },
-      }
-    );
-    if (response.statusText === 'OK') {
-       toast.success("Password Changed successfully", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+    try {
+      const response = await axios.patch(
+        `/api/doctor/changePassword`,
+       {
+         id,
+         cPassword,
+         currentPassword,
+         newPassword,
+       },
+       {
+         headers: {
+           Authorization: `Bearer ${doctor.token}`,
+         },
+       }
+     );
+     console.log('fdfd',response);
+     
+     if (response.statusText === 'OK') {
+        toast.success("Password Changed successfully", {
+         position: "top-right",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+       
+       setCPassword('')
+       setCurrentPassword('')
+       setNewPassword('')
+     }
+     console.log(response.data);
+    } catch (error) {
       
-      setCPassword('')
-      setCurrentPassword('')
-      setNewPassword('')
+        return toast.error("Invalid current password", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      
     }
-    console.log(response.data);
+    
     
   };
   return (

@@ -6,6 +6,8 @@ import Dashboard from '../../components/doctor/Dashboard'
 import Mypatients from '../../components/doctor/Mypatients'
 import MyPatientView from '../../components/doctor/MyPatientView'
 import MedicationTime from '../../components/doctor/MedicationTime'
+import DrugList from '../../components/doctor/DrugList'
+import Prescription from '../../components/doctor/Prescription'
 
 function SingleMyPatientView() {
   return (
@@ -19,7 +21,9 @@ function SingleMyPatientView() {
         </div>
         <div className="p-10 w-full">
           <MyPatientView />
-          <MedicationTime />
+          {/* <MedicationTime /> */}
+          <DrugList/>
+          <Prescription/>
         </div>
       </div>
     </div>

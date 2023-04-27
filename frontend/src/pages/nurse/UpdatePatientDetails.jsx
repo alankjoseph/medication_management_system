@@ -12,7 +12,7 @@ function UpdatePatientDetails() {
         <Sidebar />
 
         <div className="p-10 w-full">
-          <UpdatePatient />
+          <UpdatePatient title='Update Patient' />
           
         </div>
       </div>

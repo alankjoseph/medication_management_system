@@ -16,23 +16,21 @@ function PrescribedDrugs() {
   const [remark, setRemark] = useState("");
   const { id } = useParams();
   const { nurse } = useAuthContext();
-  const [doseOne, setDoseOne] = useState("");
-  const [doseTwo, setDoseTwo] = useState("");
-  const [doseThree, setDoseThree] = useState("");
-  const [tick,setTick]=useState(true)
+  const [doseOne, setDoseOne] = useState(null);
+  const [doseTwo, setDoseTwo] = useState(null);
+  const [doseThree, setDoseThree] = useState(null);
+  const [tick, setTick] = useState(true);
 
   const getDrugs = async () => {
     try {
-      const response = await axios.get(
-        `/api/doctor/patientDrugs/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${nurse.token}`,
-          },
-        }
-      );
+      const response = await axios.get(`/api/doctor/patientDrugs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${nurse.token}`,
+        },
+      });
       setData(response.data);
       setFilterData(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -40,11 +38,12 @@ function PrescribedDrugs() {
   useEffect(() => {
     getDrugs();
   }, [tick]);
-  useEffect(() => {
-    console.log(days);
-    console.log(remark);
-    console.log(dosage);
-  });
+  
+  // useEffect(() => {
+  //   data.forEach((item,index) => {
+  //     console.log(item.firstDose?.[item.firstDose.length-1]?.slice(0, 15) == Date().toString().slice(0,15));
+  //   })
+  // });
 
   const columns = [
     {
@@ -101,17 +100,20 @@ function PrescribedDrugs() {
     {
       name: "Action",
       selector: (row) => {
-        const { firstDose, secondDose, thirdDose } = row;
-
-        const boxOne =async (e) => {
+        const { firstDose, secondDose, thirdDose, _id, patientID } = row;
+        
+        const first = row.firstDose?.[row.firstDose.length - 1]?.slice(0, 15) == Date().toString().slice(0, 15)
+        const second = row.secondDose?.[row.secondDose.length - 1]?.slice(0, 15) == Date().toString().slice(0, 15)
+        const third =  row.thirdDose?.[row.thirdDose.length-1]?.slice(0, 15) == Date().toString().slice(0,15)
+        const boxOne = async (e) => {
           if (e.target.checked) {
-            setTick(!tick)
+            setTick(!tick);
             console.log("Checkbox 1 was checked");
             const currentDate = new Date().toString();
-            await axios.patch(
+            const response = await axios.patch(
               `/api/nurse/dosage/${row._id}`,
               {
-                firstDose:currentDate
+                firstDose: currentDate,
               },
               {
                 headers: {
@@ -119,21 +121,23 @@ function PrescribedDrugs() {
                 },
               }
             );
+            console.log(response.data);
           }
+          
           // Call function for checkbox 1
         };
 
         const boxTwo = async (e) => {
           // Call function for checkbox 2
           if (e.target.checked) {
-            setTick(!tick)
+            setTick(!tick);
             console.log("Checkbox 2 was checked");
             const currentDate = new Date().toString();
-            
-            await axios.patch(
+
+            const response = await axios.patch(
               `/api/nurse/dosage/${row._id}`,
               {
-                secondDose :currentDate,
+                secondDose: currentDate,
               },
               {
                 headers: {
@@ -141,20 +145,21 @@ function PrescribedDrugs() {
                 },
               }
             );
+            console.log(response.data);
           }
         };
 
-        const boxThree = async(e) => {
+        const boxThree = async (e) => {
           // Call function for checkbox 3
           if (e.target.checked) {
-            setTick(!tick)
+            setTick(!tick);
             console.log("Checkbox 3 was checked");
             const currentDate = new Date().toString();
-           
-            await axios.patch(
+
+            const response = await axios.patch(
               `/api/nurse/dosage/${row._id}`,
               {
-                thirdDose :currentDate,
+                thirdDose: currentDate,
               },
               {
                 headers: {
@@ -162,14 +167,15 @@ function PrescribedDrugs() {
                 },
               }
             );
+            console.log(response.data);
           }
         };
 
         return (
           <div className="flex gap-2">
-            <input type="checkbox" checked={firstDose !== null} onChange={boxOne} />
-            <input type="checkbox" checked={secondDose !== null} onChange={boxTwo} />
-            <input type="checkbox" checked={thirdDose !== null} onChange={boxThree} />
+            <input type="checkbox" checked={first} onChange={boxOne} />
+            <input type="checkbox" checked={second} onChange={boxTwo} />
+            <input type="checkbox" checked={third} onChange={boxThree} />
           </div>
         );
       },

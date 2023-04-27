@@ -2,6 +2,8 @@ import axios from "../../instance/axios";
 import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { useAuthContext } from "../../hooks/admin/useAuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AddPatients() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -52,7 +54,7 @@ function AddPatients() {
     }
    
     // Submit the form data to the server or do something else with it here
-    const { data } = await axios.post(
+    const response = await axios.post(
       "/api/admin/AddPatient",
       {
         name,
@@ -71,6 +73,9 @@ function AddPatients() {
         }
       }
     );
+    if (response.statusText === 'OK') {
+      
+    }
   };
 
   return (

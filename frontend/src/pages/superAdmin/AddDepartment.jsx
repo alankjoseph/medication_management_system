@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/superAdmin/SideBar";
 import AddDepartments from "../../components/superAdmin/AddDepartments";
+import { BaseUrl } from "../../instance/constants";
 
 function AddDepartment() {
     return (
@@ -12,7 +13,7 @@ function AddDepartment() {
             <div className="flex">
                 <SideBar />
                 <div className="p-10 w-full">
-                    <AddDepartments title="Department" api='https://medicationsystem.online/api/superAdmin/addDepartment' />
+                    <AddDepartments title="Department" api={`${BaseUrl}/api/superAdmin/addDepartment`} />
                 </div>
             </div>
         </div>

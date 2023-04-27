@@ -14,7 +14,7 @@ function MyProfile() {
         </div>
         <div className="p-10 w-full">
           
-          <Profile name={'Alan'} age={'24'} department={'Oncology'} email={'ala@gmaill.com'} phone={'37289437'}/>
+          <Profile />
         </div>
       </div>
     </div>
