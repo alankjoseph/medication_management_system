@@ -1,1 +1,1 @@
-export const BaseUrl = 'https://medicationmanagement.online'
+export const BaseUrl = 'https://medicationsystem.online'

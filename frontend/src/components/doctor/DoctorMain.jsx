@@ -5,7 +5,7 @@ import PatientDetails from "./PatientDetails";
 function DoctorMain() {
  const [add, setAdd] = useState(false)
   return (
-    <div className="">
+    <div >
       <div className="mb-9">
         <PatientDetails />
       </div>
